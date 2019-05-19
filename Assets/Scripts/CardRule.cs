@@ -32,4 +32,9 @@ public class CardRule : ScriptableObject {
     public bool recoverCard = false;
     #endregion
 
+    #region Boarding
+    [Header("Boarding properties")]
+    public bool boarding = false;
+    #endregion
+
 }
