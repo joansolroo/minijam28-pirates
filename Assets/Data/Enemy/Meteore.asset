@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36ab305a03a2c0b4b9288abd57aab0ce, type: 3}
+  m_Name: Meteore
+  m_EditorClassIdentifier: 
+  name: Meteore
+  ship: {fileID: 21300000, guid: efceb2b412cab4641a6d907d6d553e30, type: 3}
+  face: {fileID: 21300000, guid: e84bf661a6a50cf46ae8ae2d078f6a9c, type: 3}
+  dialog:
+  - '...'
+  - '...'
+  deck:
+  - {fileID: 11400000, guid: e04bd112304565a468559c7fba0d57a5, type: 2}
+  - {fileID: 11400000, guid: e04bd112304565a468559c7fba0d57a5, type: 2}
+  - {fileID: 11400000, guid: e04bd112304565a468559c7fba0d57a5, type: 2}
+  - {fileID: 11400000, guid: e04bd112304565a468559c7fba0d57a5, type: 2}
+  - {fileID: 11400000, guid: e04bd112304565a468559c7fba0d57a5, type: 2}
+  preference: 0100000001000000010000000100000001000000
+  option1: {fileID: 11400000, guid: 64737b6417402744da3ca4fff230b987, type: 2}
+  option2: {fileID: 11400000, guid: 4b80acafb9f9f3f48867f9036ec33b2d, type: 2}
+  maxLife: 6
+  startLife: 6
