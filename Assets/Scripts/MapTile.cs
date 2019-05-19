@@ -32,4 +32,16 @@ public class MapTile : MonoBehaviour {
             renderer.color = subColor;
         }
     }
+    public void ResetHighlight()
+    {
+        Color subColor = this.color;
+        subColor.a = sprites[0].color.a;
+        sprites[0].color = subColor;
+    }
+    public void SetHighlight(Color color)
+    {
+        Color subColor = color;
+        subColor.a = sprites[0].color.a;
+        sprites[0].color = subColor;
+    }
 }

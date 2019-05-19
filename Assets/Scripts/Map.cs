@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Map : MonoBehaviour {
 
-    [SerializeField] MapTile[] tiles;
+    [SerializeField] public MapTile[] tiles;
     [SerializeField] List<Ship> ships;
 
     public static Map current;
@@ -24,6 +24,7 @@ public class Map : MonoBehaviour {
 
     public Vector3 GetPosition(int cell)
     {
+        
         return tiles[cell].transform.position;
     }
 }

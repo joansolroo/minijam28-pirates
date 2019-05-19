@@ -31,79 +31,14 @@ public class Game : MonoBehaviour {
 
     private void OnDrawGizmos()
     {
-        PreviewPlayer(player1);
-        PreviewPlayer(player2);
+        //PreviewPlayer(player1);
+        //PreviewPlayer(player2);
         
     }
     void PreviewPlayer(Player player)
     {
         {
-            Ship ship = player.ship;
-            Ship enemyShip = player.enemy.ship;
-
-            foreach (Card card in player.selected.cards)
-            {
-                if (card.visible)
-                {
-                    if (card.rule.damageAmount > 0)
-                    {
-                        Gizmos.color = Color.red;
-                        Vector3 size = new Vector3(0.7f, 0.7f, 0.7f);
-                        if (card.rule.attackTarget == CardRule.AttackTarget.All)
-                        {
-
-                            for (int i = 0; i < 3; ++i)
-                            {
-                                Vector3 cell = map.GetPosition(enemyShip.position + enemyShip.direction * i);
-                                Gizmos.DrawCube(cell, size);
-                                Gizmos.DrawLine(card.transform.position, cell);
-                            }
-                        }
-                        else if (card.rule.attackTarget == CardRule.AttackTarget.Moving)
-                        {
-                            for (int i = 1; i < 3; ++i)
-                            {
-                                Vector3 cell = map.GetPosition(enemyShip.position + enemyShip.direction * i);
-                                Gizmos.DrawCube(cell, size);
-                                Gizmos.DrawLine(card.transform.position, cell);
-                            }
-                        }
-                        else if (card.rule.attackTarget == CardRule.AttackTarget.notMoving)
-                        {
-                            Vector3 cell = map.GetPosition(enemyShip.position);
-                            Gizmos.DrawCube(cell, size);
-                            Gizmos.DrawLine(card.transform.position, cell);
-                        }
-
-                    }
-                    if (card.rule.movementAmount > 0)
-                    {
-                        Vector3 size = new Vector3(0.9f, 0.01f, 0.9f);
-                        Gizmos.color = Color.blue;
-                        for (int i = 0; i <= card.rule.movementAmount; ++i)
-                        {
-                            Vector3 cell = map.GetPosition(ship.position + ship.direction * i);
-                            Gizmos.DrawCube(cell, size);
-                            Gizmos.DrawLine(card.transform.position, cell);
-                        }
-
-                    }
-
-                    if (card.rule.healAmount > 0)
-                    {
-                        Gizmos.color = Color.green;
-                        {
-                            Vector3 size = new Vector3(0.8f, 0.05f, 0.8f);
-                            Vector3 cell = map.GetPosition(ship.position);
-                            Gizmos.DrawCube(cell, size);
-                            Gizmos.DrawLine(card.transform.position, cell);
-                            
-                        }
-
-                    }
-
-                }
-            }
+            
         }
     }
     public void BeginTurn()

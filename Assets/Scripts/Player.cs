@@ -25,29 +25,26 @@ public class Player : MonoBehaviour
     public CardRegion discard;
     public CardRegion exhile;
 
-    Transform deckContainer;
+    List<Card> deckContainer = new List<Card>();
+
     public void RemakeDeck()
     {
-        if (deckContainer)
+        if (deckContainer!=null && deckContainer.Count>0)
         {
-            for (int c = 0; c < deckContainer.childCount; ++c)
+            for (int c = 0; c < deckContainer.Count; ++c)
             {
-                GameObject.Destroy(deckContainer.GetChild(c).gameObject);
+                GameObject.Destroy(deckContainer[c].gameObject);
             }
+            deckContainer.Clear();
         }
-        else
-        {
-            deckContainer = new GameObject().transform;
-            deckContainer.transform.parent = this.transform.parent;
-            deckContainer.transform.localPosition = Vector3.zero;
-        }
-
         foreach (CardRule rule in deckbuild)
         {
             Card card = GameObject.Instantiate<Card>(cardTemplate);
             card.owner = this;
             card.rule = rule;
-            card.transform.parent = deckContainer;
+            card.transform.parent = deck.transform;
+            card.transform.localPosition = Vector3.zero;
+            card.transform.localEulerAngles = new Vector3(180, 0, 180);
             card.map = Map.current;
             deck.AddCardFirst(card);
 

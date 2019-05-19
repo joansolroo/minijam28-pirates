@@ -24,7 +24,7 @@ public static class IListExtensions
 public class CardRegion : MonoBehaviour
 {
 
-    [SerializeField] Player player;
+    [SerializeField] public Player player;
     public enum Region
     {
         Table, Hand, Selected, Deck, Exhile, Discard
