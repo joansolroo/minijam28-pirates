@@ -6,6 +6,7 @@ using UnityEngine;
 public class CardRule : ScriptableObject {
 
     public string name;
+    [TextArea(5, 5)]
     public string description;
 
     public Sprite art;
@@ -34,9 +35,10 @@ public class CardRule : ScriptableObject {
     public bool recoverCard = false;
     #endregion
 
-    #region Boarding
-    [Header("Boarding properties")]
+    #region Special
+    [Header("Special properties")]
     public bool boarding = false;
+    public bool scan = false;
     #endregion
 
 }

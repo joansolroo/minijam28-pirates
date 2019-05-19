@@ -13,13 +13,20 @@ MonoBehaviour:
   m_Name: attack-1-static
   m_EditorClassIdentifier: 
   name: Railgun
-  description: 
+  description: 'Attack:
+
+    If enemy NOT moves:
+
+    > Damage: 1
+
+    > Range: 7'
   art: {fileID: 21300000, guid: 85f32f4f58cd9454dac1669aba43e3e5, type: 3}
   color: {r: 0.654902, g: 0.24705884, b: 0.24705884, a: 1}
   movementAmount: 0
   damageAmount: 1
   attackTarget: 1
-  attackMaxRange: 5
+  attackMaxRange: 7
   healAmount: 0
   recoverCard: 0
   boarding: 0
+  scan: 0

@@ -12,9 +12,11 @@ public class Fight : MonoBehaviour {
 
     [SerializeField] UnityEngine.UI.Button confirmButton;
     // Use this for initialization
-	
+
+    public static Fight current;
     public void Setup(List<CardRule> player1deck, List<CardRule> player2deck)
     {
+        current = this;
         player1.deckbuild = player1deck;
         player1.RemakeDeck();
         player1.hp = player1.maxHp;
@@ -40,7 +42,7 @@ public class Fight : MonoBehaviour {
         if (confirmButton)
         {
             confirmButton.interactable = player1.selected.cards.Count>0;
-            confirmButton.gameObject.SetActive(player1.selected.cards.Count > 0);
+            confirmButton.gameObject.SetActive(player1.selected.cards.Count > 0 && !isSolving);
         }
     }
     public void BeginTurn()
@@ -53,8 +55,7 @@ public class Fight : MonoBehaviour {
     {
         if (player1.selected.cards.Count > 0)
         {
-            ResolveAction();
-            EndRound();
+            StartCoroutine(SolveTurn());
         }
         else
         {
@@ -64,61 +65,7 @@ public class Fight : MonoBehaviour {
 
     public void ResolveAction()
     {
-        //Debug.Log("Solving turn");
-        bool ship1moved = false;
-        bool ship2moved = false;
-        // move
-        foreach (Card c1 in player1.selected.cards)
-        {
-            ship1moved |= c1.DoMove();
-        }
-        foreach (Card c2 in player2.selected.cards)
-        {
-            ship2moved |= c2.DoMove();
-        }
-
-        bool ship1hit = false;
-        bool ship2hit = false;
-        // attack
-        foreach (Card c1 in player1.selected.cards)
-        {
-            ship1hit |= c1.DoAttack(ship2moved);
-        }
-        foreach (Card c2 in player2.selected.cards)
-        {
-            ship2hit |= c2.DoAttack(ship1moved);
-        }
-
-        // repair
-        foreach (Card c1 in player1.selected.cards)
-        {
-            c1.DoRepair();
-        }
-        foreach (Card c2 in player2.selected.cards)
-        {
-            c2.DoRepair();
-        }
-
-        if (player1.hp <= 0)
-        {
-            game.LoseFight();
-        }
-        else if (player2.hp <= 0)
-        { 
-            game.WinFight();
-        }
-    }
-    void EndRound()
-    {
-        //Debug.Log("Ending turn");
-        // discard
-        player1.DiscardSelected();
-        player1.Draw();
-
-        player2.DiscardSelected();
-        player2.Draw();
-
-        BeginTurn();
+        
     }
 
 
@@ -127,6 +74,134 @@ public class Fight : MonoBehaviour {
         //  Debug.Log("Enemy movement");
         enemyController.SelectCard();
     }
+    public bool isSolving = false;
+    IEnumerator SolveTurn()
+    {
+        if (!isSolving)
+        {
+            isSolving = true;
+            player2.RevealSelected();
+            yield return new WaitForSeconds(0.5f);
+
+            bool ship1hit = false;
+            bool ship2hit = false;
+            // attack
+            bool ship1move = false;
+            bool ship2move = false;
+            foreach (Card c1 in player1.selected.cards)
+            {
+                ship1move |= c1.WillMove();
+            }
+            foreach (Card c2 in player2.selected.cards)
+            {
+                ship2move |= c2.WillMove();
+            }
+            foreach (Card c1 in player1.selected.cards)
+            {
+                ship1hit |= c1.DoAttackNotMoved(ship2move);
+            }
+            
+            foreach (Card c2 in player2.selected.cards)
+            {
+                ship2hit |= c2.DoAttackNotMoved(ship1move);
+            }
+
+            if (ship1hit)
+            {
+                ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                parameter.startColor = player2.color;
+                map.tiles[player2.ship.position].emission.Emit(parameter, Random.Range(20,50));
+            }
+            if (ship2hit)
+            {
+                ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                parameter.startColor = player1.color;
+                map.tiles[player1.ship.position].emission.Emit(parameter, Random.Range(20,50));
+            }
+            
+            //Debug.Log("Solving turn");
+            bool ship1moved = false;
+            bool ship2moved = false;
+            // move
+            foreach (Card c1 in player1.selected.cards)
+            {
+                ship1moved |= c1.DoMove();
+            }
+            foreach (Card c2 in player2.selected.cards)
+            {
+                ship2moved |= c2.DoMove();
+            }
+            yield return new WaitForSeconds(0.5f);
+            // attack
+
+            ship1hit = false;
+            ship2hit = false;
+            foreach (Card c1 in player1.selected.cards)
+            {
+                ship1hit |= c1.DoAttackMoved(ship2moved);                
+            }
+            if (ship1hit)
+            {
+                ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                parameter.startColor = player2.color;
+                map.tiles[player2.ship.position].emission.Emit(parameter, Random.Range(20,50));
+            }
+            foreach (Card c2 in player2.selected.cards)
+            {
+                ship2hit |= c2.DoAttackMoved(ship1moved);
+            }
+            if (ship2hit)
+            {
+                ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                parameter.startColor = player1.color;
+                map.tiles[player1.ship.position].emission.Emit(parameter, Random.Range(20,50));
+            }
 
 
+            yield return new WaitForSeconds(0.2f);
+
+            if (player1.hp <= 0)
+            {
+                player1.ship.gameObject.SetActive(false);
+                yield return new WaitForSeconds(1f);
+                game.LoseFight();
+            }
+            else if (player2.hp <= 0)
+            {
+                player2.ship.gameObject.SetActive(false);
+                yield return new WaitForSeconds(1f);
+                game.WinFight();
+            }
+            if (player1.ship.position > player2.ship.position)
+            {
+                game.DrawFight();
+            }
+            // repair
+            foreach (Card c1 in player1.selected.cards)
+            {
+                c1.DoSpecial();
+            }
+            foreach (Card c2 in player2.selected.cards)
+            {
+                c2.DoSpecial();
+            }
+            yield return new WaitForSeconds(0.5f);
+
+            player1.DiscardSelected();
+            player2.DiscardSelected();
+            yield return new WaitForSeconds(0.5f);
+
+            player1.Draw();
+            player2.Draw();
+            yield return new WaitForSeconds(0.5f);
+            BeginTurn();
+
+            isSolving = false;
+        }
+    }
+
+    public void OnBoard(Player source, Player target)
+    {
+        game.WinFight();
+    }
 }

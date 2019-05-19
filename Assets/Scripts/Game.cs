@@ -58,6 +58,19 @@ public class Game : MonoBehaviour
         wonScreen.gameObject.SetActive(true);
         wonScreen.Play();
     }
+
+    public void DrawFight()
+    {
+        Debug.LogWarning("this is the win screen, but it was a draw");
+        currentFight.gameObject.SetActive(false);
+        option1.rule = enemyDeck[Random.Range(0, enemyDeck.Count)];
+        option1.GetComponent<CardRenderer>().UpdateLayout();
+        option2.rule = enemyDeck[Random.Range(0, enemyDeck.Count)];
+        option2.GetComponent<CardRenderer>().UpdateLayout();
+        wonScreen.gameObject.SetActive(true);
+        wonScreen.Play();
+    }
+
     public void LoseFight()
     {
         currentFight.gameObject.SetActive(false);
