@@ -3373,7 +3373,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5b4bccc268a186244957cb4af6af44ca, type: 2}
   cardTemplate: {fileID: 114751471397489374, guid: 2827825ae4c9c854e92336b42f298956,
     type: 3}
-  confirmButton: {fileID: 1459532249}
   hand: {fileID: 372679796}
   selected: {fileID: 1913706419}
   deck: {fileID: 1248298431}
@@ -8292,6 +8291,10 @@ MonoBehaviour:
   introductionScreen: {fileID: 127042493}
   wonScreen: {fileID: 1770625011}
   looseScreen: {fileID: 2128374117}
+  playerDeck: []
+  enemyDeck: []
+  option1: {fileID: 0}
+  option2: {fileID: 0}
 --- !u!1 &728831514
 GameObject:
   m_ObjectHideFlags: 0
@@ -14817,8 +14820,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 298569985}
   player2: {fileID: 1328200448}
+  enemyController: {fileID: 0}
   map: {fileID: 1588805873}
   game: {fileID: 727266843}
+  confirmButton: {fileID: 0}
 --- !u!4 &1272249207
 Transform:
   m_ObjectHideFlags: 0
@@ -15731,7 +15736,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d57ad00175a370740a3de5596b661e08, type: 2}
   cardTemplate: {fileID: 114751471397489374, guid: 2827825ae4c9c854e92336b42f298956,
     type: 3}
-  confirmButton: {fileID: 0}
   hand: {fileID: 316097965}
   selected: {fileID: 1642866547}
   deck: {fileID: 61072580}
@@ -20823,6 +20827,7 @@ MonoBehaviour:
   - {fileID: 1339439177}
   fullLine: {fileID: 2100000, guid: 0feaa48412f9a4c4d9312ed53e0ff560, type: 2}
   dottedLine: {fileID: 2100000, guid: f454c342ca217b34e8d3dc2efcb5e8dc, type: 2}
+  description: {fileID: 0}
 --- !u!1 &1692919377
 GameObject:
   m_ObjectHideFlags: 0
@@ -23044,7 +23049,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1146409314450908, guid: 2827825ae4c9c854e92336b42f298956, type: 3}
       propertyPath: m_Name
-      value: Move-2
+      value: Heavy burn
       objectReference: {fileID: 0}
     - target: {fileID: 1146409314450908, guid: 2827825ae4c9c854e92336b42f298956, type: 3}
       propertyPath: m_IsActive

@@ -18,4 +18,8 @@ public class EnemyData : ScriptableObject
     [Header("Cards")]
     public CardRule option1;
     public CardRule option2;
+
+    [Header("Life")]
+    public int maxLife;
+    public int startLife;
 }
