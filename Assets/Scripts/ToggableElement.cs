@@ -9,15 +9,22 @@ public class ToggableElement : MonoBehaviour {
     public float interpolationTime = 1;
     public float interpolationOffset = 0;
     public bool fadeOut = true;
-    // Use this for initialization
-    void Start () {
+
+    private Vector3 showPos;
+
+    void Start()
+    {
+        showPos = transform.position;
         StartCoroutine(DoShow());
-	}
+    }
+
+    /*void OnEnable () {
+        StartCoroutine(DoShow());
+	}*/
 	
     IEnumerator DoShow()
     {
         Vector3 hiddenPos = hiddenPosition.transform.position;
-        Vector3 showPos = this.transform.position;
         this.transform.position = hiddenPos;
         yield return new WaitForSeconds(interpolationOffset);
 

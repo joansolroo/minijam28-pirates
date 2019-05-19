@@ -106,5 +106,6 @@ public class Game : MonoBehaviour
         previous.gameObject.SetActive(false);
         introduceEnnemy.gameObject.SetActive(true);
         introduceEnnemy.gameObject.GetComponent<IntroduceEnnemy>().Setup(ennemies[currentEnnemy]);
+        currentEnnemy++;
     }
 }
