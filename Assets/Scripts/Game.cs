@@ -8,6 +8,7 @@ public class Game : MonoBehaviour
     [SerializeField] UIIntroduction introductionScreen;
     [SerializeField] UIIntroduction wonScreen;
     [SerializeField] UIIntroduction looseScreen;
+    [SerializeField] UIIntroduction introduceEnnemy;
 
     Fight currentFight;
 
@@ -17,6 +18,9 @@ public class Game : MonoBehaviour
     [SerializeField] Card option1;
     [SerializeField] Card option2;
 
+    [SerializeField] EnemyData[] ennemies;
+    private int currentEnnemy;
+
     public void Start()
     {
         fight.gameObject.SetActive(false);
@@ -25,13 +29,14 @@ public class Game : MonoBehaviour
         wonScreen.gameObject.SetActive(false);
 
         introductionScreen.Play();
+        currentEnnemy = 0;
     }
 
     void Update()
     {
         if (introductionScreen.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
-            LaunchFight(introductionScreen);
+            LaunchEnnemyIntruduction(introductionScreen);
         }
     }
     public void LaunchFight(UIIntroduction previous)
@@ -65,22 +70,28 @@ public class Game : MonoBehaviour
     {
         Debug.Log("equipe card 1");
         playerDeck.Add(option1.rule);
-        LaunchFight(wonScreen);
+        LaunchEnnemyIntruduction(wonScreen);
     }
     public void Equipe2()
     {
         Debug.Log("equipe card 2");
         playerDeck.Add(option2.rule);
-        LaunchFight(wonScreen);
+        LaunchEnnemyIntruduction(wonScreen);
     }
     public void Loose1()
     {
         Debug.Log("loose card 1");
-        LaunchFight(looseScreen);
+        LaunchEnnemyIntruduction(looseScreen);
     }
     public void Loose2()
     {
         Debug.Log("loose card 2");
-        LaunchFight(looseScreen);
+        LaunchEnnemyIntruduction(looseScreen);
+    }
+    public void LaunchEnnemyIntruduction(UIIntroduction previous)
+    {
+        previous.gameObject.SetActive(false);
+        introduceEnnemy.gameObject.SetActive(true);
+        introduceEnnemy.gameObject.GetComponent<IntroduceEnnemy>().Setup(ennemies[currentEnnemy]);
     }
 }

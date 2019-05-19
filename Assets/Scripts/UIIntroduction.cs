@@ -24,8 +24,12 @@ public class UIIntroduction : MonoBehaviour {
         }
     }
 
-    public void End()
+    public void LaunchFight()
     {
         game.LaunchFight(this);
+    }
+    public void LaunchEnnemyIntruduction()
+    {
+        game.LaunchEnnemyIntruduction(this);
     }
 }
