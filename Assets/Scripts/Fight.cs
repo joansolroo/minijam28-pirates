@@ -29,12 +29,7 @@ public class Fight : MonoBehaviour {
         player2.enemy = player1;
         player2.ship.MoveTo(12,false);
 
-        for (int c = 0; c < 3; ++c)
-        {
-            player1.Draw();
-            player2.Draw();
-        }
-        BeginTurn();
+        StartCoroutine(DoSetup());
     }
 
     private void Update()
@@ -42,7 +37,7 @@ public class Fight : MonoBehaviour {
         if (confirmButton)
         {
             confirmButton.interactable = player1.selected.cards.Count>0;
-            confirmButton.gameObject.SetActive(player1.selected.cards.Count > 0 && !isSolving);
+            confirmButton.gameObject.SetActive(player1.selected.cards.Count > 0  && player2.selected.cards.Count > 0 && !isSolving);
         }
     }
     public void BeginTurn()
@@ -75,6 +70,22 @@ public class Fight : MonoBehaviour {
         enemyController.SelectCard();
     }
     public bool isSolving = false;
+
+    IEnumerator DoSetup()
+    {
+        isSolving = true;
+        yield return new WaitForSeconds(0.5f);
+        for (int c = 0; c < 3; ++c)
+        {
+            yield return new WaitForSeconds(Random.Range(0.05f,0.1f));
+            player1.Draw();
+            yield return new WaitForSeconds(Random.Range(0, 0.05f));
+            player2.Draw();
+        }
+        yield return new WaitForSeconds(1f);
+        BeginTurn();
+        isSolving = false;
+    }
     IEnumerator SolveTurn()
     {
         if (!isSolving)
@@ -136,25 +147,32 @@ public class Fight : MonoBehaviour {
 
             ship1hit = false;
             ship2hit = false;
-            foreach (Card c1 in player1.selected.cards)
+            if (!ship1hit)
             {
-                ship1hit |= c1.DoAttackMoved(ship2moved);                
+                foreach (Card c1 in player1.selected.cards)
+                {
+                    ship1hit |= c1.DoAttackMoved(ship2moved);
+                }
+
+                if (ship1hit)
+                {
+                    ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                    parameter.startColor = player2.color;
+                    map.tiles[player2.ship.position].emission.Emit(parameter, Random.Range(20, 50));
+                }
             }
-            if (ship1hit)
+            if (!ship2hit)
             {
-                ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
-                parameter.startColor = player2.color;
-                map.tiles[player2.ship.position].emission.Emit(parameter, Random.Range(20,50));
-            }
-            foreach (Card c2 in player2.selected.cards)
-            {
-                ship2hit |= c2.DoAttackMoved(ship1moved);
-            }
-            if (ship2hit)
-            {
-                ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
-                parameter.startColor = player1.color;
-                map.tiles[player1.ship.position].emission.Emit(parameter, Random.Range(20,50));
+                foreach (Card c2 in player2.selected.cards)
+                {
+                    ship2hit |= c2.DoAttackMoved(ship1moved);
+                }
+                if (ship2hit)
+                {
+                    ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                    parameter.startColor = player1.color;
+                    map.tiles[player1.ship.position].emission.Emit(parameter, Random.Range(20, 50));
+                }
             }
 
 

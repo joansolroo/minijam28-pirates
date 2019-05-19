@@ -31,8 +31,8 @@ public class PreviewAction : MonoBehaviour
         Ship enemyShip = player.enemy.ship;
 
         Map map = Map.current;
+        bool visible = false;
         description.text = "Card description:\n";
-        
         foreach (Card card in player.selected.cards)
         {
             description.text += card.rule.description;
@@ -40,6 +40,7 @@ public class PreviewAction : MonoBehaviour
             {
                 if (card.visible)
                 {
+                    visible = true;
                     if (card.rule.damageAmount > 0)
                     {
                         Gizmos.color = Color.red;
@@ -189,6 +190,11 @@ public class PreviewAction : MonoBehaviour
 
                 }
             }
+        }
+
+        if (!visible)
+        {
+            description.text = "";
         }
 
     }
