@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class UIIntroduction : MonoBehaviour {
 
+    public Game game;
     public IntroSlide[] slides;
-    public void Start()
+    public void Play()
     {
         StartCoroutine(ChangeSlides());
     }
@@ -21,5 +22,10 @@ public class UIIntroduction : MonoBehaviour {
             s.gameObject.SetActive(true);
             yield return new WaitForSeconds(s.activatedTime);
         }
+    }
+
+    public void End()
+    {
+        game.LaunchFight(this);
     }
 }

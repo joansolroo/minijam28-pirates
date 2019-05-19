@@ -8,6 +8,7 @@ public class ToggableElement : MonoBehaviour {
     public float duration = 5;
     public float interpolationTime = 1;
     public float interpolationOffset = 0;
+    public bool fadeOut = true;
     // Use this for initialization
     void Start () {
         StartCoroutine(DoShow());
@@ -21,16 +22,19 @@ public class ToggableElement : MonoBehaviour {
         yield return new WaitForSeconds(interpolationOffset);
 
         for (float t = 0; t < interpolationTime; t+=Time.deltaTime) {
-            this.transform.position = Vector3.Lerp(hiddenPos, showPos, t);
+            this.transform.position = Vector3.Lerp(hiddenPos, showPos, t / interpolationTime);
             yield return new WaitForEndOfFrame();
         }
 
-        yield return new WaitForSeconds(duration - interpolationOffset - 2* interpolationTime);
-        for (float t = 0; t < interpolationTime; t += Time.deltaTime)
+        if(fadeOut)
         {
-            this.transform.position = Vector3.Lerp(showPos, hiddenPos, t);
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(duration - interpolationOffset - 2* interpolationTime);
+            for (float t = 0; t < interpolationTime; t += Time.deltaTime)
+            {
+                this.transform.position = Vector3.Lerp(showPos, hiddenPos, t / interpolationTime);
+                yield return new WaitForEndOfFrame();
+            }
+            this.gameObject.SetActive(false);
         }
-        this.gameObject.SetActive(false);
     }
 }
