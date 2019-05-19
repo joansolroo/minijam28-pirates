@@ -17,9 +17,9 @@ MonoBehaviour:
   art: {fileID: 21300000, guid: 4919437bb0c260f4999ea446312369c4, type: 3}
   color: {r: 1, g: 0, b: 0, a: 1}
   movementAmount: 0
-  damageAmount: 1
+  damageAmount: 2
   attackTarget: 2
-  attackMaxRange: 4
+  attackMaxRange: 6
   healAmount: 0
   recoverCard: 0
   boarding: 0

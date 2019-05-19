@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
-
+    public bool player1 = false;
     [SerializeField] public Ship ship;
     [SerializeField] public Player enemy;
     [SerializeField] public Color color;
@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     public CardRegion exhile;
 
     List<Card> deckContainer = new List<Card>();
+    [SerializeField] PreviewAction preview;
 
     public void RemakeDeck()
     {
@@ -64,14 +65,13 @@ public class Player : MonoBehaviour
         }
         if (c != null)
         {
-            c.SetVisible(false);
+            c.SetVisible(this == player1);
             hand.AddCardFirst(c);
         }
     }
 
     public void Select(Card card)
     {
-
         if (card.region.Remove(card))
         {
             if (selected.cards.Count > 0)
@@ -81,8 +81,17 @@ public class Player : MonoBehaviour
                 hand.AddCardLast(previous);
             }
             selected.AddCardLast(card);
+            preview.DoPreviewAction();
         }
        
+    }
+    public void RevealSelected()
+    {
+        foreach (Card card in selected.cards)
+        {
+            card.SetVisible(true);
+        }
+        preview.DoPreviewAction();
     }
     public void DiscardSelected()
     {
@@ -91,7 +100,8 @@ public class Player : MonoBehaviour
             discard.AddCardLast(card);
         }
         selected.Clear();
-       
+        preview.DoPreviewAction();
+
     }
 
     public void Heal(CardRule source)
@@ -133,6 +143,7 @@ public class Player : MonoBehaviour
         foreach (Card card in discard.cards)
         {
             deck.AddCardLast(card);
+            card.SetVisible(false);
         }
         deck.Shuffle();
         discard.Clear();

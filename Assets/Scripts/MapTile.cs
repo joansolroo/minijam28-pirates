@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapTile : MonoBehaviour {
 
     [SerializeField] Color color;
-
+    [SerializeField]public ParticleSystem emission;
     [SerializeField] SpriteRenderer[] sprites;
 	
     // Use this for initialization

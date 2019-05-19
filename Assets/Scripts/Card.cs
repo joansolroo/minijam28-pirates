@@ -84,12 +84,10 @@ public class Card : MonoBehaviour {
     {
         this.visible = visible;
         StartCoroutine(DoMoveCardTo(this.region, this.transform.position, visible));
-
     }
-    public void MoveTo(CardRegion region, Vector3 localPosition, bool visible)
+    public void MoveTo(CardRegion region, Vector3 localPosition)
     {
         this.region = region;
-        this.visible = visible;
         Vector3 targetPosition =  region.transform.TransformPoint(localPosition);
         if (Vector3.Distance(this.transform.position, targetPosition) > 0.1f)
         {
