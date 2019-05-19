@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Heal-1
   m_EditorClassIdentifier: 
   name: Reparation
-  description: 
+  description: 'Heal: 1'
   art: {fileID: 21300000, guid: b5ac08c0519ea284ca9820beeec0f61b, type: 3}
   color: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
   movementAmount: 0
@@ -23,3 +23,4 @@ MonoBehaviour:
   healAmount: 1
   recoverCard: 1
   boarding: 0
+  scan: 0

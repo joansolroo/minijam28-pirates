@@ -1447,6 +1447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0.114640504, b: 0.1509434, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 1175009606}
   - {fileID: 722756416}
@@ -2574,6 +2575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0.114640504, b: 0.1509434, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 1405988528}
   - {fileID: 1414026693}
@@ -3038,6 +3040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0.33962262, g: 0, b: 0.13185358, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 1705325687}
   - {fileID: 1314034169}
@@ -3098,6 +3101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0.33962262, g: 0, b: 0.13185358, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 1248764329}
   - {fileID: 1572434472}
@@ -3363,6 +3367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0.114640504, b: 0.1509434, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 701334400}
   - {fileID: 723737001}
@@ -3594,6 +3599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0.114640504, b: 0.1509434, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 1692919379}
   - {fileID: 1235932132}
@@ -3784,6 +3790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0.33962262, g: 0, b: 0.13185358, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 367104549}
   - {fileID: 1363989074}
@@ -4427,6 +4434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0.114640504, b: 0.1509434, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 1034805971}
   - {fileID: 1749673136}
@@ -4666,6 +4674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0.114640504, b: 0.1509434, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 201447291}
   - {fileID: 654781565}
@@ -7165,6 +7174,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1588805874}
     m_Modifications:
+    - target: {fileID: 1798218759585258, guid: b3a3b691bb1aefe4890a56ccb99fe4cd, type: 3}
+      propertyPath: m_Name
+      value: Map tile
+      objectReference: {fileID: 0}
     - target: {fileID: 4685919730088006, guid: b3a3b691bb1aefe4890a56ccb99fe4cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.3
@@ -7195,6 +7208,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4685919730088006, guid: b3a3b691bb1aefe4890a56ccb99fe4cd, type: 3}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685919730088006, guid: b3a3b691bb1aefe4890a56ccb99fe4cd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685919730088006, guid: b3a3b691bb1aefe4890a56ccb99fe4cd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685919730088006, guid: b3a3b691bb1aefe4890a56ccb99fe4cd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -7413,6 +7438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0.33962262, g: 0, b: 0.13185358, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 1771580107}
   - {fileID: 810847744}
@@ -7931,7 +7957,7 @@ Transform:
   - {fileID: 2055648607}
   - {fileID: 1692188791}
   m_Father: {fileID: 1642866546}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &647835645
 MonoBehaviour:
@@ -7960,7 +7986,7 @@ MonoBehaviour:
   - {fileID: 1692188792}
   fullLine: {fileID: 2100000, guid: 0feaa48412f9a4c4d9312ed53e0ff560, type: 2}
   dottedLine: {fileID: 2100000, guid: f454c342ca217b34e8d3dc2efcb5e8dc, type: 2}
-  description: {fileID: 1363683516}
+  description: {fileID: 1857840093}
 --- !u!1 &647987150
 GameObject:
   m_ObjectHideFlags: 0
@@ -8515,6 +8541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0.33962262, g: 0, b: 0.13185358, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 1287328643}
   - {fileID: 405713141}
@@ -9111,10 +9138,10 @@ MonoBehaviour:
   wonScreen: {fileID: 1770625011}
   looseScreen: {fileID: 2128374117}
   playerDeck:
-  - {fileID: 11400000, guid: 04634284cf9ac2347baa2e887502b533, type: 2}
-  - {fileID: 11400000, guid: 6443e87eea5f90b4f8e02107a4b076a2, type: 2}
-  - {fileID: 11400000, guid: 655e36de50a615743a917173b4f351c6, type: 2}
-  - {fileID: 11400000, guid: d57ad00175a370740a3de5596b661e08, type: 2}
+  - {fileID: 11400000, guid: 08845d0b60f97c44280f19cf7a5dd598, type: 2}
+  - {fileID: 11400000, guid: 08845d0b60f97c44280f19cf7a5dd598, type: 2}
+  - {fileID: 11400000, guid: 08845d0b60f97c44280f19cf7a5dd598, type: 2}
+  - {fileID: 11400000, guid: 08845d0b60f97c44280f19cf7a5dd598, type: 2}
   - {fileID: 11400000, guid: 31e6db8745c3dbf4abf7be851e0a2290, type: 2}
   - {fileID: 11400000, guid: 5b4bccc268a186244957cb4af6af44ca, type: 2}
   enemyDeck:
@@ -11066,6 +11093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0.114640504, b: 0.1509434, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 254748574}
   - {fileID: 1725751999}
@@ -12106,6 +12134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0.33962262, g: 0, b: 0.13185358, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 934053291}
   - {fileID: 232541723}
@@ -12224,7 +12253,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1642866546}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
 --- !u!102 &958966833
 TextMesh:
@@ -13153,6 +13182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0.33962262, g: 0, b: 0.13185358, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 2124452935}
   - {fileID: 391104996}
@@ -13540,7 +13570,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1642866546}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &1042174244
 SpriteRenderer:
@@ -14648,6 +14678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0.114640504, b: 0.1509434, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 847412097}
   - {fileID: 223033577}
@@ -15404,6 +15435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0.33962262, g: 0, b: 0.13185358, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 2120644907}
   - {fileID: 44227522}
@@ -15464,6 +15496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0.114640504, b: 0.1509434, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 616241611}
   - {fileID: 1538672380}
@@ -17360,6 +17393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0.114640504, b: 0.1509434, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 406033251}
   - {fileID: 1319702630}
@@ -17735,6 +17769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0.33962262, g: 0, b: 0.13185358, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 802178796}
   - {fileID: 702152046}
@@ -18056,6 +18091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0.114640504, b: 0.1509434, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 1642391961}
   - {fileID: 2100519145}
@@ -19244,6 +19280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0.114640504, b: 0.1509434, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 771842392}
   - {fileID: 207925282}
@@ -20509,6 +20546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0.33962262, g: 0, b: 0.13185358, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 1813848238}
   - {fileID: 1962061735}
@@ -21678,7 +21716,7 @@ Transform:
   m_LocalScale: {x: 0.29999998, y: 0.3300001, z: 0.3300001}
   m_Children: []
   m_Father: {fileID: 1642866546}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &1642558746
 SpriteRenderer:
@@ -21756,11 +21794,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -7.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 958966832}
   - {fileID: 1857840092}
   - {fileID: 1042174243}
   - {fileID: 1642558745}
   - {fileID: 647835644}
-  - {fileID: 958966832}
   m_Father: {fileID: 1328200449}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -24648,11 +24686,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1857840091}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.70710677}
-  m_LocalPosition: {x: 3.55, y: 0, z: 0.14}
+  m_LocalPosition: {x: 2.1, y: 0, z: 2.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1642866546}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
 --- !u!102 &1857840093
 TextMesh:
@@ -24669,7 +24707,7 @@ TextMesh:
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 1
-  m_Anchor: 4
+  m_Anchor: 0
   m_Alignment: 0
   m_TabSize: 4
   m_FontSize: 72
@@ -27189,6 +27227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0.33962262, g: 0, b: 0.13185358, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 1731526815}
   - {fileID: 1903682660}
@@ -27707,6 +27746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0.33962262, g: 0, b: 0.13185358, a: 1}
+  emission: {fileID: 0}
   sprites:
   - {fileID: 1445538685}
   - {fileID: 1911297339}

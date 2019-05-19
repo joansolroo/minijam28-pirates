@@ -82,6 +82,43 @@ public class Fight : MonoBehaviour {
             isSolving = true;
             player2.RevealSelected();
             yield return new WaitForSeconds(0.5f);
+
+            bool ship1hit = false;
+            bool ship2hit = false;
+            // attack
+            bool ship1move = false;
+            bool ship2move = false;
+            foreach (Card c1 in player1.selected.cards)
+            {
+                ship1move |= c1.WillMove();
+            }
+            foreach (Card c2 in player2.selected.cards)
+            {
+                ship2move |= c2.WillMove();
+            }
+            foreach (Card c1 in player1.selected.cards)
+            {
+                ship1hit |= c1.DoAttackNotMoved(ship2move);
+            }
+            
+            foreach (Card c2 in player2.selected.cards)
+            {
+                ship2hit |= c2.DoAttackNotMoved(ship1move);
+            }
+
+            if (ship1hit)
+            {
+                ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                parameter.startColor = player2.color;
+                map.tiles[player2.ship.position].emission.Emit(parameter, Random.Range(20,50));
+            }
+            if (ship2hit)
+            {
+                ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                parameter.startColor = player1.color;
+                map.tiles[player1.ship.position].emission.Emit(parameter, Random.Range(20,50));
+            }
+            
             //Debug.Log("Solving turn");
             bool ship1moved = false;
             bool ship2moved = false;
@@ -95,33 +132,44 @@ public class Fight : MonoBehaviour {
                 ship2moved |= c2.DoMove();
             }
             yield return new WaitForSeconds(0.5f);
-            bool ship1hit = false;
-            bool ship2hit = false;
             // attack
+
+            ship1hit = false;
+            ship2hit = false;
             foreach (Card c1 in player1.selected.cards)
             {
-                ship1hit |= c1.DoAttack(ship2moved);                
+                ship1hit |= c1.DoAttackMoved(ship2moved);                
             }
             if (ship1hit)
             {
-                map.tiles[player2.ship.position].emission.Emit(Random.Range(60, 100));
+                ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                parameter.startColor = player2.color;
+                map.tiles[player2.ship.position].emission.Emit(parameter, Random.Range(20,50));
             }
             foreach (Card c2 in player2.selected.cards)
             {
-                ship2hit |= c2.DoAttack(ship1moved);
+                ship2hit |= c2.DoAttackMoved(ship1moved);
             }
             if (ship2hit)
             {
-                map.tiles[player1.ship.position].emission.Emit(Random.Range(60, 100));
+                ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                parameter.startColor = player1.color;
+                map.tiles[player1.ship.position].emission.Emit(parameter, Random.Range(20,50));
             }
-            yield return new WaitForSeconds(1f);
+
+
+            yield return new WaitForSeconds(0.2f);
 
             if (player1.hp <= 0)
             {
+                player1.ship.gameObject.SetActive(false);
+                yield return new WaitForSeconds(1f);
                 game.LoseFight();
             }
             else if (player2.hp <= 0)
             {
+                player2.ship.gameObject.SetActive(false);
+                yield return new WaitForSeconds(1f);
                 game.WinFight();
             }
             if (player1.ship.position > player2.ship.position)
@@ -131,11 +179,11 @@ public class Fight : MonoBehaviour {
             // repair
             foreach (Card c1 in player1.selected.cards)
             {
-                c1.DoRepair();
+                c1.DoSpecial();
             }
             foreach (Card c2 in player2.selected.cards)
             {
-                c2.DoRepair();
+                c2.DoSpecial();
             }
             yield return new WaitForSeconds(0.5f);
 
@@ -150,6 +198,10 @@ public class Fight : MonoBehaviour {
 
             isSolving = false;
         }
-        
+    }
+
+    public void OnBoard(Player source, Player target)
+    {
+        game.WinFight();
     }
 }

@@ -32,8 +32,10 @@ public class PreviewAction : MonoBehaviour
 
         Map map = Map.current;
         description.text = "Card description:\n";
+        
         foreach (Card card in player.selected.cards)
         {
+            description.text += card.rule.description;
             //if (!card.isAnimating)
             {
                 if (card.visible)
@@ -45,8 +47,8 @@ public class PreviewAction : MonoBehaviour
                         int targetPosition = Mathf.Min(enemyShip.position, ship.position + card.rule.attackMaxRange * ship.direction);
                         if (card.rule.attackTarget == CardRule.AttackTarget.All)
                         {
-                            description.text += "Damage: " + card.rule.damageAmount + "\n"
-                                + "  Range: " + card.rule.attackMaxRange + "\n";
+                           /*description.text += "Damage: " + card.rule.damageAmount + "\n"
+                                + "  Range: " + card.rule.attackMaxRange + "\n";*/
                             for (int i = 0; i < 3; ++i)
                             {
                                 int idx = targetPosition + enemyShip.direction * i;
@@ -75,8 +77,8 @@ public class PreviewAction : MonoBehaviour
                         }
                         else if (card.rule.attackTarget == CardRule.AttackTarget.Moving)
                         {
-                            description.text += "If enemy moves:\n" + ">  Damage: " + card.rule.damageAmount + "\n"
-                                + ">  Range: " + card.rule.attackMaxRange + "\n";
+                            /*description.text += "If enemy moves:\n" + ">  Damage: " + card.rule.damageAmount + "\n"
+                                + ">  Range: " + card.rule.attackMaxRange + "\n";*/
                             for (int i = 1; i < 3; ++i)
                             {
                                 int idx = targetPosition + enemyShip.direction * i;
@@ -105,9 +107,9 @@ public class PreviewAction : MonoBehaviour
                         }
                         else if (card.rule.attackTarget == CardRule.AttackTarget.notMoving)
                         {
-                            description.text += "If enemy NOT moves:\n"
+                            /*description.text += "If enemy NOT moves:\n"
                                 + ">  Damage: " + card.rule.damageAmount + "\n"
-                                 + ">  Range: " + card.rule.attackMaxRange + "\n";
+                                 + ">  Range: " + card.rule.attackMaxRange + "\n";*/
                             int idx = targetPosition;
                             if (idx > ship.position)
                             {
@@ -137,11 +139,11 @@ public class PreviewAction : MonoBehaviour
                     }
                     if (card.rule.movementAmount > 0)
                     {
-                        description.text += "Movement: " + card.rule.movementAmount + "\n";
+                        /*description.text += "Movement: " + card.rule.movementAmount + "\n";
                         if(card.rule.boarding)
                         {
                             description.text += ">  Special: BOARDING\n";
-                        }
+                        }*/
                         for (int i = 0; i <= card.rule.movementAmount; ++i)
                         {
                             int idx = ship.position + ship.direction * i;
@@ -168,7 +170,7 @@ public class PreviewAction : MonoBehaviour
 
                     if (card.rule.healAmount > 0)
                     {
-                        description.text += "Heal: " + card.rule.healAmount + "\n";
+                        //description.text += "Heal: " + card.rule.healAmount + "\n";
                         int idx = ship.position;
                         Vector3 cell = map.GetPosition(idx);
                         Map.current.tiles[idx].SetHighlight(Color.green);

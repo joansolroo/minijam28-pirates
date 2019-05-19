@@ -27,7 +27,17 @@ public class Card : MonoBehaviour {
         }
         this.gameObject.name = name;
     }
-
+    public bool WillMove()
+    {
+        if (rule.movementAmount > 0)
+        {
+             return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public bool DoMove()
     {
         if (rule.movementAmount > 0)
@@ -42,7 +52,7 @@ public class Card : MonoBehaviour {
         }
     }
 
-    public bool DoAttack(bool enemyMoved)
+    public bool DoAttackMoved(bool enemyMoved)
     {
         if (rule.damageAmount > 0)
         {
@@ -50,7 +60,6 @@ public class Card : MonoBehaviour {
             if(rule.attackMaxRange > Mathf.Abs(owner.ship.position - owner.enemy.ship.position))
             {
                 bool hit = ((rule.attackTarget == CardRule.AttackTarget.All)
-                           || (rule.attackTarget == CardRule.AttackTarget.notMoving && !enemyMoved)
                            || (rule.attackTarget == CardRule.AttackTarget.Moving && enemyMoved));
 
                 if (!hit)
@@ -74,16 +83,64 @@ public class Card : MonoBehaviour {
         }
         return false;
     }
+    public bool DoAttackNotMoved(bool enemyWillMove)
+    {
+        if (rule.damageAmount > 0)
+        {
 
-    public void DoRepair()
+            if (rule.attackMaxRange >= Mathf.Abs(owner.ship.position - owner.enemy.ship.position))
+            {
+                bool hit = ((rule.attackTarget == CardRule.AttackTarget.All)
+                           || (rule.attackTarget == CardRule.AttackTarget.notMoving && !enemyWillMove));
+
+                if (!hit)
+                {
+                    Debug.Log("Attack: attack missed");
+                }
+                else
+                {
+                    Debug.Log("Attack: attack hit");
+                    owner.enemy.Hurt(rule);
+                }
+
+                return hit;
+
+            }
+            else
+            {
+                Debug.Log("Attack: Out of range");
+            }
+
+        }
+        return false;
+    }
+
+    public void DoSpecial()
     {
         owner.Heal(this.rule);
+        if (rule.scan)
+        {
+            foreach (Card c in owner.enemy.hand.cards)
+            {
+                c.SetVisible(true);
+            }
+        }
+        if(rule.boarding)
+        {
+            if(Mathf.Abs(owner.ship.position - owner.enemy.ship.position)<=1)
+            {
+                Fight.current.OnBoard(owner, owner.enemy);
+            }
+        }
     }
 
     public void SetVisible(bool visible)
     {
-        this.visible = visible;
-        StartCoroutine(DoMoveCardTo(this.region, this.transform.position, visible));
+        if (this.visible != visible)
+        {
+            this.visible = visible;
+            StartCoroutine(DoMoveCardTo(this.region, this.transform.position, visible));
+        }
     }
     public void MoveTo(CardRegion region, Vector3 localPosition)
     {
