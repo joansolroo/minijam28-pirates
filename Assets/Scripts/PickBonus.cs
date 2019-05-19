@@ -25,13 +25,13 @@ public class PickBonus : MonoBehaviour {
 
     public void OnOption1()
     {
-        player.deck.AddCard(card1);
+        player.deck.AddCardLast(card1);
         Hide();
     }
 
     public void OnOption2()
     {
-        player.deck.AddCard(card2);
+        player.deck.AddCardLast(card2);
         Hide();
 
     }

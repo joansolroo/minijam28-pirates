@@ -18,4 +18,4 @@ MonoBehaviour:
   attackTarget: 0
   attackMaxRange: -1
   healAmount: 1
-  recoverCard: 0
+  recoverCard: 1

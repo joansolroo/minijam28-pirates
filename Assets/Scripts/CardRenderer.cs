@@ -13,9 +13,17 @@ public class CardRenderer : MonoBehaviour {
     [SerializeField] TextMesh heal;
 
     [SerializeField] SpriteRenderer art;
+    [SerializeField] SpriteRenderer factionIcon;
+    [SerializeField] SpriteRenderer[] PlayerColoredElements;
 
     private void Start()
     {
+        Color color = card.owner.color;
+        factionIcon.sprite = card.owner.faction;
+        foreach(SpriteRenderer element in PlayerColoredElements)
+        {
+            element.color = color;
+        }
         cardName.text = card.rule.name;
         movement.text = "x"+card.rule.movementAmount;
         damage.text = "x" + card.rule.damageAmount;

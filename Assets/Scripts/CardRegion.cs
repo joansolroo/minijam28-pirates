@@ -32,30 +32,19 @@ public class CardRegion : MonoBehaviour
     [SerializeField] public Region region;
     [SerializeField] public List<Card> cards = new List<Card>();
 
-    private void Start()
-    {
-        for (int c = 0; c < transform.childCount; ++c)
-        {
-            Card card = transform.GetChild(c).GetComponent<Card>();
-            if (card)
-            {
-                cards.Add(card);
-                card.region = this;
-            }
-        }
-        Shuffle();
-    }
     public void Shuffle()
     {
         cards.Shuffle();
+        UpdateLayout();
     }
 
     public Card Draw()
     {
         if (cards.Count > 0)
         {
-            Card card = cards[0];
-            cards.RemoveAt(0);
+            int idx = cards.Count - 1;
+            Card card = cards[idx];
+            cards.RemoveAt(idx);
             return card;
         }
         else
@@ -81,12 +70,18 @@ public class CardRegion : MonoBehaviour
         cards.Clear();
     }
 
-    public void AddCard(Card card)
+    public void AddCardFirst(Card card)
     {
         card.transform.parent = this.transform;
-        cards.Add(card);
-
+        cards.Insert(0, card);
         card.region = this;
+        UpdateLayout();
+    }
+    public void AddCardLast(Card card)
+    {
+        card.transform.parent = this.transform;
+        card.region = this;
+        cards.Add(card);
         UpdateLayout();
     }
 
@@ -95,15 +90,41 @@ public class CardRegion : MonoBehaviour
         if (region == Region.Hand)
         {
             for (int c = 0; c < cards.Count; ++c){
-                cards[c].transform.localPosition = new Vector3(c* Card.CARD_SIZE.x, 0,0);
+                cards[c].MoveTo(this, new Vector3(c* Card.CARD_SIZE.x, 0,0),true);
             }
         }
-        else
+        else if (region == Region.Selected)
         {
             for (int c = 0; c < cards.Count; ++c)
             {
-                cards[c].transform.localPosition = Vector3.zero;
+                cards[c].MoveTo(this, new Vector3(c * Card.CARD_SIZE.x, Card.CARD_SIZE.z, 0), true);
             }
         }
+        else if (region == Region.Deck)
+        {
+            for (int c = 0; c < cards.Count; ++c)
+            {
+                cards[c].MoveTo(this, new Vector3(0, (c+1) * Card.CARD_SIZE.z, 0), false);
+            }
+        }
+        else if (region == Region.Discard)
+        {
+            for (int c = 0; c < cards.Count; ++c)
+            {
+                cards[c].MoveTo(this, new Vector3(0, (c+1) * Card.CARD_SIZE.z, 0), true);
+            }
+        }
+        else if (region == Region.Exhile)
+        {
+            for (int c = 0; c < cards.Count; ++c)
+            {
+                cards[c].MoveTo(this, new Vector3(0, (c + 1) * Card.CARD_SIZE.z, 0), true);
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(this.transform.position, new Vector3(Card.CARD_SIZE.x, Card.CARD_SIZE.z, Card.CARD_SIZE.y));
     }
 }

@@ -16,6 +16,6 @@ MonoBehaviour:
   movementAmount: 0
   damageAmount: 1
   attackTarget: 2
-  attackMaxRange: 4
+  attackMaxRange: 12
   healAmount: 0
   recoverCard: 0
