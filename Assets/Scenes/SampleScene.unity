@@ -388,6 +388,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activatedTime: 16
+  elements:
+  - {fileID: 1281571713}
+  - {fileID: 53553547}
+  - {fileID: 1474357085}
+  - {fileID: 616209101}
+  - {fileID: 187602881}
 --- !u!224 &29902457
 RectTransform:
   m_ObjectHideFlags: 0
@@ -725,6 +731,7 @@ MonoBehaviour:
   interpolationTime: 0.5
   interpolationOffset: 0
   fadeOut: 0
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &53553548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1924,6 +1931,7 @@ MonoBehaviour:
   interpolationTime: 0.5
   interpolationOffset: 1
   fadeOut: 0
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &187602882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5616,6 +5624,7 @@ MonoBehaviour:
   interpolationTime: 0.5
   interpolationOffset: 0
   fadeOut: 1
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &425804790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7892,6 +7901,7 @@ MonoBehaviour:
   interpolationTime: 0.3
   interpolationOffset: 0
   fadeOut: 0
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &595285652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8195,6 +8205,7 @@ MonoBehaviour:
   interpolationTime: 0.5
   interpolationOffset: 1
   fadeOut: 0
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &616209102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8803,6 +8814,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activatedTime: 16
+  elements:
+  - {fileID: 425804789}
 --- !u!224 &649272190
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10206,6 +10219,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activatedTime: 5
+  elements:
+  - {fileID: 2082805295}
 --- !u!1 &743755067
 GameObject:
   m_ObjectHideFlags: 0
@@ -12822,6 +12837,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activatedTime: 16
+  elements:
+  - {fileID: 1177686502}
+  - {fileID: 1406035095}
+  - {fileID: 1884978393}
 --- !u!1 &946082978
 GameObject:
   m_ObjectHideFlags: 0
@@ -15973,6 +15992,7 @@ MonoBehaviour:
   interpolationTime: 0.5
   interpolationOffset: 0
   fadeOut: 1
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1177686503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17248,7 +17268,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1272249206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17361,6 +17381,7 @@ MonoBehaviour:
   interpolationTime: 1
   interpolationOffset: 1
   fadeOut: 0
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1281571714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19258,6 +19279,7 @@ MonoBehaviour:
   interpolationTime: 0.5
   interpolationOffset: 5
   fadeOut: 1
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1406035096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20899,6 +20921,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activatedTime: 16
+  elements:
+  - {fileID: 1982391194}
+  - {fileID: 2064014935}
+  - {fileID: 2028108483}
+  - {fileID: 1996033381}
+  - {fileID: 1850941653}
 --- !u!1 &1472439987
 GameObject:
   m_ObjectHideFlags: 0
@@ -21038,6 +21066,7 @@ MonoBehaviour:
   interpolationTime: 1
   interpolationOffset: 1.3
   fadeOut: 0
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1474357086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25435,6 +25464,7 @@ MonoBehaviour:
   interpolationTime: 0.5
   interpolationOffset: 1
   fadeOut: 0
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1850941654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25957,6 +25987,7 @@ MonoBehaviour:
   interpolationTime: 0.5
   interpolationOffset: 8
   fadeOut: 1
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1884978394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26160,6 +26191,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activatedTime: 10
+  elements:
+  - {fileID: 595285651}
 --- !u!1 &1898403128
 GameObject:
   m_ObjectHideFlags: 0
@@ -26913,6 +26946,7 @@ MonoBehaviour:
   interpolationTime: 0.5
   interpolationOffset: 0
   fadeOut: 1
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1964820769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27222,6 +27256,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activatedTime: 10
+  elements:
+  - {fileID: 2089054537}
 --- !u!1 &1982391192
 GameObject:
   m_ObjectHideFlags: 0
@@ -27279,6 +27315,7 @@ MonoBehaviour:
   interpolationTime: 1
   interpolationOffset: 1
   fadeOut: 0
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1982391195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27569,6 +27606,7 @@ MonoBehaviour:
   interpolationTime: 0.5
   interpolationOffset: 1
   fadeOut: 0
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1996033382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27810,6 +27848,7 @@ MonoBehaviour:
   interpolationTime: 1
   interpolationOffset: 1.3
   fadeOut: 0
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &2028108484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28330,6 +28369,7 @@ MonoBehaviour:
   interpolationTime: 0.5
   interpolationOffset: 0
   fadeOut: 0
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &2064014936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28758,6 +28798,7 @@ MonoBehaviour:
   interpolationTime: 0.5
   interpolationOffset: 0
   fadeOut: 1
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &2082805296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29093,6 +29134,7 @@ MonoBehaviour:
   interpolationTime: 0.3
   interpolationOffset: 0
   fadeOut: 0
+  showPos: {x: 0, y: 0, z: 0}
 --- !u!114 &2089054538
 MonoBehaviour:
   m_ObjectHideFlags: 0

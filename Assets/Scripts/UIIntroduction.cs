@@ -20,7 +20,9 @@ public class UIIntroduction : MonoBehaviour {
         foreach (IntroSlide s in slides)
         {
             s.gameObject.SetActive(true);
+            s.Play();
             yield return new WaitForSeconds(s.activatedTime);
+            s.gameObject.SetActive(false);
         }
     }
 
