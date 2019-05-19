@@ -51,9 +51,9 @@ public class Game : MonoBehaviour
     public void WinFight()
     {
         currentFight.gameObject.SetActive(false);
-        option1.rule = enemyDeck[Random.Range(0,enemyDeck.Count)];
+        option1.rule = ennemies[currentEnnemy].option1;
         option1.GetComponent<CardRenderer>().UpdateLayout();
-        option2.rule = enemyDeck[Random.Range(0, enemyDeck.Count)];
+        option2.rule = ennemies[currentEnnemy].option2;
         option2.GetComponent<CardRenderer>().UpdateLayout();
         wonScreen.gameObject.SetActive(true);
         wonScreen.Play();
