@@ -1115,7 +1115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &127042492
 Transform:
   m_ObjectHideFlags: 0
@@ -9878,7 +9878,7 @@ MonoBehaviour:
   introductionScreen: {fileID: 127042493}
   wonScreen: {fileID: 1770625011}
   looseScreen: {fileID: 2128374117}
-  introduceEnnemy: {fileID: 0}
+  introduceEnnemy: {fileID: 1579288923}
   playerDeck:
   - {fileID: 11400000, guid: 655e36de50a615743a917173b4f351c6, type: 2}
   - {fileID: 11400000, guid: 655e36de50a615743a917173b4f351c6, type: 2}
@@ -9894,7 +9894,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 655e36de50a615743a917173b4f351c6, type: 2}
   option1: {fileID: 374802796}
   option2: {fileID: 1311399426}
-  ennemies: []
+  ennemies:
+  - {fileID: 11400000, guid: 8bdf73eb8101a6a449b51d7cc9de8749, type: 2}
+  - {fileID: 11400000, guid: e775cb2ebd612ee4892e693a1fd34036, type: 2}
+  - {fileID: 11400000, guid: 632f841ab1fb5a048be8e5f424ac9c83, type: 2}
+  - {fileID: 11400000, guid: 0303ca94ecaa4ea4196a493de183bd8a, type: 2}
+  - {fileID: 11400000, guid: 54c8805b7e93d6341b64b2ff152fe4a4, type: 2}
 --- !u!82 &727266844
 AudioSource:
   m_ObjectHideFlags: 0
@@ -17242,7 +17247,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1272249206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21916,7 +21921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1378a26d787376b498bd493058291917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game: {fileID: 0}
+  game: {fileID: 727266843}
   slides:
   - {fileID: 649272189}
   - {fileID: 1891800396}

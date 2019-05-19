@@ -12,25 +12,13 @@ public class ToggableElement : MonoBehaviour {
 
     private Vector3 showPos;
 
-    void Start()
+    void OnEnable()
     {
         showPos = transform.position;
-        //play();
-    }
-    public void play()
-    {
         StartCoroutine(DoShow());
     }
-    public void OnEnable()
-    {
-        Debug.Log("toto");
-        play();
-    }
-
-    /*void OnEnable () {
-        StartCoroutine(DoShow());
-	}*/
-
+    
+	
     IEnumerator DoShow()
     {
         Vector3 hiddenPos = hiddenPosition.transform.position;
@@ -50,7 +38,6 @@ public class ToggableElement : MonoBehaviour {
                 this.transform.position = Vector3.Lerp(showPos, hiddenPos, t / interpolationTime);
                 yield return new WaitForEndOfFrame();
             }
-            //transform.parent.gameObject.SetActive(false);
         }
     }
 }
