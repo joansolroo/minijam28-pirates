@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2c60d3679a28c4490ba2beadacc826, type: 3}
   m_Name: boarding
   m_EditorClassIdentifier: 
+  name: Boarding
+  description: 
   art: {fileID: 21300000, guid: db76535ac4da11d408695732ae9c3cb6, type: 3}
   color: {r: 0, g: 0.5628409, b: 0.735849, a: 1}
   movementAmount: 1

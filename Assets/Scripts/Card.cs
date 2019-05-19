@@ -32,7 +32,7 @@ public class Card : MonoBehaviour {
     {
         if (rule.movementAmount > 0)
         {
-            map.Move(owner.ship, rule.movementAmount);
+            owner.ship.MoveTo(owner.ship.position+ owner.ship.direction*rule.movementAmount);
 
             return true;
         }
@@ -93,33 +93,41 @@ public class Card : MonoBehaviour {
         Vector3 targetPosition =  region.transform.TransformPoint(localPosition);
         if (Vector3.Distance(this.transform.position, targetPosition) > 0.1f)
         {
+            StopCoroutine(DoMoveCardTo(region, targetPosition, visible));
             StartCoroutine(DoMoveCardTo(region, targetPosition, visible));
         }
     }
 
+    public bool isAnimating = false;
     IEnumerator DoMoveCardTo(CardRegion region, Vector3 targetPosition, bool visible)
     {
-        Vector3 fromPos = this.transform.position;
-        Vector3 toPos = targetPosition;
-        Vector3 middlePos = (fromPos + toPos) / 2 + Vector3.up*5;
-        Vector3 fromRot = this.transform.localEulerAngles;
-        Vector3 toRot = visible ? new Vector3(0, 0, 0) : new Vector3(0, 0, 180);
-        float animationDuration = 0.25f;
-        float delta = Time.deltaTime / animationDuration;
-        for (float t = 0; t < 1f; t += delta)
+       // if (!isAnimating)
         {
-            if (t < 0.5f)
+            isAnimating = true;
+            Vector3 fromPos = this.transform.position;
+            Vector3 toPos = targetPosition;
+            Vector3 middlePos = (fromPos + toPos) / 2 + Vector3.up * 5;
+            Vector3 fromRot = this.transform.localEulerAngles;
+            Vector3 toRot = visible ? new Vector3(0, 0, 0) : new Vector3(0, 0, 180);
+            float animationDuration = 0.25f;
+            float delta = Time.deltaTime / animationDuration;
+            for (float t = 0; t < 1f; t += delta)
             {
-                this.transform.position = Vector3.Lerp(fromPos, middlePos, t*2);
+                if (t < 0.5f)
+                {
+                    this.transform.position = Vector3.Lerp(fromPos, middlePos, t * 2);
+                }
+                else
+                {
+                    this.transform.position = Vector3.Lerp(middlePos, toPos, t * 2 - 1);
+                }
+                this.transform.localEulerAngles = Vector3.Lerp(fromRot, toRot, t);
+                yield return new WaitForEndOfFrame();
             }
-            else
-            {
-                this.transform.position = Vector3.Lerp(middlePos, toPos, t * 2-1);
-            }
-            this.transform.localEulerAngles = Vector3.Lerp(fromRot,toRot,t);
-            yield return new WaitForEndOfFrame();
+            this.transform.position = toPos;
+            this.transform.localEulerAngles = toRot;
+
+            isAnimating = false;
         }
-        this.transform.position = toPos;
-        this.transform.localEulerAngles = toRot;
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "cardRule", menuName = "Cards/rule", order = 1)]
 public class CardRule : ScriptableObject {
 
+    public string name;
+    public string description;
 
     public Sprite art;
     public Color color;

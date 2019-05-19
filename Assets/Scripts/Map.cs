@@ -14,14 +14,10 @@ public class Map : MonoBehaviour {
         current = this;
     }
 
-    public void Move(Ship ship, int amount)
+    public int ClipPosition(int position)
     {
-        int newPos = ship.position+amount * ship.direction;
-        newPos = Mathf.Min(tiles.Length - 1, Mathf.Max(0, newPos));
-        ship.position = newPos;
-        ship.transform.position = GetPosition(ship.position) + new Vector3(0,0.1f,0);
+        return Mathf.Min(tiles.Length - 1, Mathf.Max(0, position));
     }
-
     public Vector3 GetPosition(int cell)
     {
         
