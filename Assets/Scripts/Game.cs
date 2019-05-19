@@ -19,6 +19,14 @@ public class Game : MonoBehaviour
 
         introductionScreen.Play();
     }
+
+    void Update()
+    {
+        if (introductionScreen.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        {
+            LaunchFight(introductionScreen);
+        }
+    }
     public void LaunchFight(UIIntroduction previous)
     {
         previous.gameObject.SetActive(false);

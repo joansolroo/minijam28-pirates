@@ -17,10 +17,12 @@ public class Fight : MonoBehaviour {
     void Setup()
     {
         player1.RemakeDeck();
+        player1.hp = player1.maxHp;
         player1.enemy = player2;
         player1.ship.MoveTo(0,false);
 
         player2.RemakeDeck();
+        player2.hp = player2.maxHp;
         player2.enemy = player1;
         player2.ship.MoveTo(12,false);
 
