@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 114279938927543656}
   - component: {fileID: 65509529209553914}
   m_Layer: 0
-  m_Name: Move-1
+  m_Name: Card template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

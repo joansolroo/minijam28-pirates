@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
 
@@ -16,6 +17,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] CardRule[] deckbuild;
     [SerializeField] Card cardTemplate;
+
+    [SerializeField] Button confirmButton;
 
     [Header("Card regions")]
     public CardRegion hand;
@@ -50,6 +53,12 @@ public class Player : MonoBehaviour
 
         }
         deck.Shuffle();
+
+        if (confirmButton)
+        {
+            confirmButton.interactable = false;
+            confirmButton.gameObject.SetActive(false);
+        }
     }
 
     public void Draw()
@@ -69,6 +78,7 @@ public class Player : MonoBehaviour
 
     public void Select(Card card)
     {
+
         if (card.region.Remove(card))
         {
             if (selected.cards.Count > 0)
@@ -78,6 +88,24 @@ public class Player : MonoBehaviour
                 hand.AddCardLast(previous);
             }
             selected.AddCardLast(card);
+        }
+        if (confirmButton)
+        {
+            confirmButton.gameObject.SetActive(true);
+            confirmButton.interactable = true;
+        }
+    }
+    public void DiscardSelected()
+    {
+        foreach (Card card in selected.cards)
+        {
+            discard.AddCardLast(card);
+        }
+        selected.Clear();
+        if (confirmButton)
+        {
+            confirmButton.interactable = false;
+            confirmButton.gameObject.SetActive(false);
         }
     }
 
@@ -114,14 +142,7 @@ public class Player : MonoBehaviour
         HPCounter.UpdateHP();
     }
 
-    public void DiscardSelected()
-    {
-        foreach (Card card in selected.cards)
-        {
-            discard.AddCardLast(card);
-        }
-        selected.Clear();
-    }
+    
     public void ShuffleDiscard()
     {
         foreach (Card card in discard.cards)
