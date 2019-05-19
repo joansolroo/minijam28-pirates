@@ -9138,12 +9138,12 @@ MonoBehaviour:
   wonScreen: {fileID: 1770625011}
   looseScreen: {fileID: 2128374117}
   playerDeck:
-  - {fileID: 11400000, guid: 08845d0b60f97c44280f19cf7a5dd598, type: 2}
-  - {fileID: 11400000, guid: 08845d0b60f97c44280f19cf7a5dd598, type: 2}
-  - {fileID: 11400000, guid: 08845d0b60f97c44280f19cf7a5dd598, type: 2}
-  - {fileID: 11400000, guid: 08845d0b60f97c44280f19cf7a5dd598, type: 2}
-  - {fileID: 11400000, guid: 31e6db8745c3dbf4abf7be851e0a2290, type: 2}
+  - {fileID: 11400000, guid: 655e36de50a615743a917173b4f351c6, type: 2}
+  - {fileID: 11400000, guid: 655e36de50a615743a917173b4f351c6, type: 2}
+  - {fileID: 11400000, guid: 4b80acafb9f9f3f48867f9036ec33b2d, type: 2}
   - {fileID: 11400000, guid: 5b4bccc268a186244957cb4af6af44ca, type: 2}
+  - {fileID: 11400000, guid: 2ea26641929c5c14c86f1e13f588dbf3, type: 2}
+  - {fileID: 11400000, guid: 31e6db8745c3dbf4abf7be851e0a2290, type: 2}
   enemyDeck:
   - {fileID: 11400000, guid: 655e36de50a615743a917173b4f351c6, type: 2}
   - {fileID: 11400000, guid: 4b80acafb9f9f3f48867f9036ec33b2d, type: 2}
