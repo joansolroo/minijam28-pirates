@@ -10,6 +10,8 @@ public class CardRenderer : MonoBehaviour {
     [SerializeField] TextMesh cardName;
     [SerializeField] TextMesh movement;
     [SerializeField] TextMesh damage;
+    [SerializeField] TextMesh range;
+    [SerializeField] TextMesh type;
     [SerializeField] TextMesh heal;
 
     [SerializeField] SpriteRenderer art;
@@ -25,10 +27,47 @@ public class CardRenderer : MonoBehaviour {
             element.color = color;
         }
         cardName.text = card.rule.name;
-        movement.text = "x"+card.rule.movementAmount;
-        damage.text = "x" + card.rule.damageAmount;
-        heal.text = "x" + card.rule.healAmount;
-
+        cardName.GetComponent<MeshRenderer>().material.color = card.rule.color;
+        if (card.rule.movementAmount <= 0)
+        {
+            movement.transform.parent.gameObject.SetActive(false);
+            
+        }
+        else
+        {
+            movement.text = "x" + card.rule.movementAmount;
+        }
+        if (card.rule.damageAmount <= 0)
+        {
+            damage.transform.parent.gameObject.SetActive(false);
+            range.transform.parent.gameObject.SetActive(false);
+            type.transform.parent.gameObject.SetActive(false);
+        }
+        else
+        {
+            damage.text = "x" + card.rule.damageAmount;
+            range.text = "" +card.rule.attackMaxRange;
+            switch (card.rule.attackTarget) {
+                case CardRule.AttackTarget.All:
+                    type.text = "*";
+                    break;
+                case CardRule.AttackTarget.Moving:
+                    type.text = "M";
+                    break;
+                case CardRule.AttackTarget.notMoving:
+                    type.text = "S";
+                    break;
+            }
+            
+        }
+        if (card.rule.healAmount <= 0)
+        {
+            heal.transform.parent.gameObject.SetActive(false);
+        }
+        else
+        {
+            heal.text = "x" + card.rule.healAmount;
+        }
         art.sprite = card.rule.art;
         art.color = card.rule.color;
     }

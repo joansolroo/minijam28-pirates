@@ -18,10 +18,12 @@ public class Fight : MonoBehaviour {
     {
         player1.RemakeDeck();
         player1.enemy = player2;
+        player1.ship.MoveTo(0,false);
+
         player2.RemakeDeck();
         player2.enemy = player1;
-        map.Move(player1.ship, 0);
-        map.Move(player2.ship, 0);
+        player2.ship.MoveTo(12,false);
+
         for (int c = 0; c < 3; ++c)
         {
             player1.Draw();
