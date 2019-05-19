@@ -19,9 +19,16 @@ MonoBehaviour:
   - Hello Human. We are in regret to announce you ...
   - We gonna kill you all.
   - Nothing personnal but you suck. Like all humans.
-  deck: []
+  deck:
+  - {fileID: 11400000, guid: 04634284cf9ac2347baa2e887502b533, type: 2}
+  - {fileID: 11400000, guid: 64737b6417402744da3ca4fff230b987, type: 2}
+  - {fileID: 11400000, guid: 655e36de50a615743a917173b4f351c6, type: 2}
+  - {fileID: 11400000, guid: 6443e87eea5f90b4f8e02107a4b076a2, type: 2}
+  - {fileID: 11400000, guid: 4b80acafb9f9f3f48867f9036ec33b2d, type: 2}
+  - {fileID: 11400000, guid: 31e6db8745c3dbf4abf7be851e0a2290, type: 2}
+  - {fileID: 11400000, guid: 31e6db8745c3dbf4abf7be851e0a2290, type: 2}
   preference: 
   option1: {fileID: 11400000, guid: 08845d0b60f97c44280f19cf7a5dd598, type: 2}
   option2: {fileID: 11400000, guid: 04634284cf9ac2347baa2e887502b533, type: 2}
-  maxLife: 0
-  startLife: 0
+  maxLife: 5
+  startLife: 3

@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: meteore
   m_EditorClassIdentifier: 
   name: meteore
-  description: 
+  description: 'Attack:
+
+    > Damage: 9999
+
+    > Range: 1
+
+    Movement: 1'
   art: {fileID: 21300000, guid: e84bf661a6a50cf46ae8ae2d078f6a9c, type: 3}
   color: {r: 0.9528302, g: 0.47094476, b: 0.06741722, a: 1}
   movementAmount: 1
@@ -23,3 +29,4 @@ MonoBehaviour:
   healAmount: 0
   recoverCard: 0
   boarding: 0
+  scan: 0

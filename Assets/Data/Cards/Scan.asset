@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Scan
   description: 'Special: SCAN'
   art: {fileID: 21300000, guid: c71109c8eea6d9b4a85ca6e9ac4fdbbc, type: 3}
-  color: {r: 1, g: 0.8000001, b: 0, a: 1}
+  color: {r: 0.9528302, g: 0.47094476, b: 0.06741722, a: 1}
   movementAmount: 0
   damageAmount: 0
   attackTarget: 0

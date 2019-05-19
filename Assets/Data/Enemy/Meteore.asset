@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Meteore
   ship: {fileID: 21300000, guid: efceb2b412cab4641a6d907d6d553e30, type: 3}
-  face: {fileID: 21300000, guid: e84bf661a6a50cf46ae8ae2d078f6a9c, type: 3}
+  face: {fileID: 21300000, guid: efceb2b412cab4641a6d907d6d553e30, type: 3}
   dialog:
+  - .
   - '...'
-  - '...'
+  - '...... !!!'
   deck:
   - {fileID: 11400000, guid: e04bd112304565a468559c7fba0d57a5, type: 2}
   - {fileID: 11400000, guid: e04bd112304565a468559c7fba0d57a5, type: 2}

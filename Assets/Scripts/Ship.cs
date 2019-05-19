@@ -11,6 +11,9 @@ public class Ship : MonoBehaviour {
 
     [SerializeField] public SpriteRenderer[] shipRenderer;
     [SerializeField] SpriteRenderer shipBase;
+
+    Vector3 initPos;
+    Vector3 initRot;
     private void Start()
     {
         foreach(SpriteRenderer renderer in shipRenderer)
@@ -19,8 +22,14 @@ public class Ship : MonoBehaviour {
             if (direction == -1) renderer.flipX=true;
         }
         shipBase.color = owner.color;
+        initPos = shipRenderer[0].transform.localPosition;
+        initRot = shipRenderer[0].transform.localEulerAngles;
     }
-
+    private void Update()
+    {
+        shipRenderer[0].transform.localPosition = initPos + Vector3.up * Mathf.Sin(Time.time * 3)*0.1f;
+        shipRenderer[0].transform.localEulerAngles = initRot + new Vector3(Mathf.Sin(Time.time * 3) * 0.5f,0, Mathf.Sin(Time.time * 5) * 3f);
+    }
     public void MoveTo(int targetPosition, bool animate = true)
     {
         if(targetPosition!=position)

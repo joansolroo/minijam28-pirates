@@ -18,6 +18,9 @@ public class Game : MonoBehaviour
     [SerializeField] Card option1;
     [SerializeField] Card option2;
 
+    [SerializeField] Card loseOption1;
+    [SerializeField] Card loseOption2;
+
     [SerializeField] EnemyData[] ennemies;
     private int currentEnnemy;
 
@@ -57,7 +60,12 @@ public class Game : MonoBehaviour
         option2.GetComponent<CardRenderer>().UpdateLayout();
         wonScreen.gameObject.SetActive(true);
         wonScreen.Play();
-        currentEnnemy++;
+        BattleEnded();
+    }
+
+    void BattleEnded()
+    {
+        currentEnnemy = (++currentEnnemy)%ennemies.Length;
     }
 
     public void DrawFight()
@@ -69,9 +77,20 @@ public class Game : MonoBehaviour
     public void LoseFight()
     {
         currentFight.gameObject.SetActive(false);
+
+        int option1idx = Random.Range(0, playerDeck.Count - 1);
+        loseOption1.rule = playerDeck[option1idx];
+        playerDeck.RemoveAt(option1idx);
+        int option2idx = Random.Range(0, playerDeck.Count - 1);
+        loseOption2.rule = playerDeck[option2idx];
+        playerDeck.RemoveAt(option2idx);
+
+        loseOption1.GetComponent<CardRenderer>().UpdateLayout();
+        loseOption2.GetComponent<CardRenderer>().UpdateLayout();
+
         looseScreen.gameObject.SetActive(true);
         looseScreen.Play();
-        currentEnnemy++;
+        BattleEnded();
     }
 
 
@@ -90,11 +109,13 @@ public class Game : MonoBehaviour
     public void Loose1()
     {
         Debug.Log("loose card 1");
+        playerDeck.Add(loseOption2.rule);
         LaunchEnnemyIntruduction(looseScreen);
     }
     public void Loose2()
     {
         Debug.Log("loose card 2");
+        playerDeck.Add(loseOption1.rule);
         LaunchEnnemyIntruduction(looseScreen);
     }
     public void LaunchEnnemyIntruduction(UIIntroduction previous)

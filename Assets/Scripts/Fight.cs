@@ -152,8 +152,6 @@ public class Fight : MonoBehaviour {
             yield return new WaitForSeconds(0.5f);
             // attack
 
-            ship1hit = false;
-            ship2hit = false;
             if (!ship1hit)
             {
                 foreach (Card c1 in player1.selected.cards)
