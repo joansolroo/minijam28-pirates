@@ -10,34 +10,50 @@ public class ToggableElement : MonoBehaviour {
     public float interpolationOffset = 0;
     public bool fadeOut = true;
 
-    private Vector3 showPos;
+    public Vector3 showPos;
 
-    void OnEnable()
+    private void Awake()
     {
         showPos = transform.position;
+    }
+    public void Play()
+    {
         StartCoroutine(DoShow());
     }
-    
-	
+
+    bool animating = false;
     IEnumerator DoShow()
     {
-        Vector3 hiddenPos = hiddenPosition.transform.position;
-        this.transform.position = hiddenPos;
-        yield return new WaitForSeconds(interpolationOffset);
-
-        for (float t = 0; t < interpolationTime; t+=Time.deltaTime) {
-            this.transform.position = Vector3.Lerp(hiddenPos, showPos, t / interpolationTime);
-            yield return new WaitForEndOfFrame();
-        }
-
-        if(fadeOut)
+        if(!animating)
         {
-            yield return new WaitForSeconds(duration - interpolationOffset - 2* interpolationTime);
+            animating = true;
+
+            Vector3 hiddenPos = hiddenPosition.transform.position;
+            this.transform.position = hiddenPos;
+            yield return new WaitForSeconds(interpolationOffset);
+
             for (float t = 0; t < interpolationTime; t += Time.deltaTime)
             {
-                this.transform.position = Vector3.Lerp(showPos, hiddenPos, t / interpolationTime);
+                this.transform.position = Vector3.Lerp(hiddenPos, showPos, t / interpolationTime);
+                Debug.Log("eee");
                 yield return new WaitForEndOfFrame();
             }
+
+            if (fadeOut)
+            {
+                yield return new WaitForSeconds(duration - interpolationOffset - 2 * interpolationTime);
+                for (float t = 0; t < interpolationTime; t += Time.deltaTime)
+                {
+                    this.transform.position = Vector3.Lerp(showPos, hiddenPos, t / interpolationTime);
+                    Debug.Log("fff");
+                    yield return new WaitForEndOfFrame();
+                }
+            }
+            animating = false;
+        }
+        else
+        {
+            Debug.LogWarning("calling twice the DoShow before it finished");
         }
     }
 }

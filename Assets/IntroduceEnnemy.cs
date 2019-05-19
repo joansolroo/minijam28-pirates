@@ -27,6 +27,7 @@ public class IntroduceEnnemy : MonoBehaviour
                 Destroy(go);
             }
         }
+        introslide.elements.Clear();
 
         float singleTime = 3.0f;
         headSprite.sprite = ennemy.face;
@@ -45,9 +46,11 @@ public class IntroduceEnnemy : MonoBehaviour
             go.transform.GetChild(0).GetComponent<Text>().text = s;
             go.transform.parent = introslide.transform;
             go.transform.position = dialogPrefab.transform.position;
+            te.showPos = dialogPrefab.transform.position;
             go.transform.rotation = dialogPrefab.transform.rotation;
             go.transform.localScale = dialogPrefab.transform.localScale;
             go.SetActive(true);
+            introslide.elements.Add(te);
             i++;
         }
         this.gameObject.GetComponent<UIIntroduction>().Play();
