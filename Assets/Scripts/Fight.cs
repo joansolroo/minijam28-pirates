@@ -14,7 +14,7 @@ public class Fight : MonoBehaviour {
     // Use this for initialization
 
     public static Fight current;
-    public void Setup(List<CardRule> player1deck, List<CardRule> player2deck)
+    public void Setup(List<CardRule> player1deck, EnemyData enemy)
     {
         current = this;
         player1.deckbuild = player1deck;
@@ -23,9 +23,12 @@ public class Fight : MonoBehaviour {
         player1.enemy = player2;
         player1.ship.MoveTo(0,false);
 
-        player2.deckbuild = player2deck;
+        player2.deckbuild = enemy.deck;
+        player2.faction = enemy.face;
+        player2.ship.shipRenderer[0].sprite = enemy.ship;
         player2.RemakeDeck();
-        player2.hp = player2.maxHp;
+        player2.hp = enemy.startLife;
+        player2.maxHp = enemy.maxLife;
         player2.enemy = player1;
         player2.ship.MoveTo(12,false);
 

@@ -45,7 +45,7 @@ public class Game : MonoBehaviour
         if (currentFight != null) Destroy(currentFight);
         currentFight = GameObject.Instantiate<Fight>(fight);
         currentFight.gameObject.SetActive(true);
-        currentFight.Setup(playerDeck, enemyDeck);
+        currentFight.Setup(playerDeck, ennemies[currentEnnemy]);
       
     }
     public void WinFight()
@@ -57,25 +57,21 @@ public class Game : MonoBehaviour
         option2.GetComponent<CardRenderer>().UpdateLayout();
         wonScreen.gameObject.SetActive(true);
         wonScreen.Play();
+        currentEnnemy++;
     }
 
     public void DrawFight()
     {
         Debug.LogWarning("this is the win screen, but it was a draw");
-        currentFight.gameObject.SetActive(false);
-        option1.rule = enemyDeck[Random.Range(0, enemyDeck.Count)];
-        option1.GetComponent<CardRenderer>().UpdateLayout();
-        option2.rule = enemyDeck[Random.Range(0, enemyDeck.Count)];
-        option2.GetComponent<CardRenderer>().UpdateLayout();
-        wonScreen.gameObject.SetActive(true);
-        wonScreen.Play();
+        WinFight();
     }
-
+   
     public void LoseFight()
     {
         currentFight.gameObject.SetActive(false);
         looseScreen.gameObject.SetActive(true);
         looseScreen.Play();
+        currentEnnemy++;
     }
 
 
@@ -106,6 +102,5 @@ public class Game : MonoBehaviour
         previous.gameObject.SetActive(false);
         introduceEnnemy.gameObject.SetActive(true);
         introduceEnnemy.gameObject.GetComponent<IntroduceEnnemy>().Setup(ennemies[currentEnnemy]);
-        currentEnnemy++;
     }
 }

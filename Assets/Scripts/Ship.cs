@@ -9,7 +9,7 @@ public class Ship : MonoBehaviour {
     [SerializeField] public int direction;
     [SerializeField] public bool moved;
 
-    [SerializeField] SpriteRenderer[] shipRenderer;
+    [SerializeField] public SpriteRenderer[] shipRenderer;
     [SerializeField] SpriteRenderer shipBase;
     private void Start()
     {

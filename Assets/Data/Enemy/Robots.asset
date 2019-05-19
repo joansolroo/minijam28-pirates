@@ -22,4 +22,6 @@ MonoBehaviour:
   deck: []
   preference: 
   option1: {fileID: 11400000, guid: 08845d0b60f97c44280f19cf7a5dd598, type: 2}
-  option2: {fileID: 0}
+  option2: {fileID: 11400000, guid: 04634284cf9ac2347baa2e887502b533, type: 2}
+  maxLife: 0
+  startLife: 0
