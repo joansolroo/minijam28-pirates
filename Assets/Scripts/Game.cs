@@ -8,7 +8,14 @@ public class Game : MonoBehaviour
     [SerializeField] UIIntroduction introductionScreen;
     [SerializeField] UIIntroduction wonScreen;
     [SerializeField] UIIntroduction looseScreen;
-    
+
+    Fight currentFight;
+
+    [SerializeField] List<CardRule> playerDeck;
+    [SerializeField] List<CardRule> enemyDeck;
+
+    [SerializeField] Card option1;
+    [SerializeField] Card option2;
 
     public void Start()
     {
@@ -30,17 +37,25 @@ public class Game : MonoBehaviour
     public void LaunchFight(UIIntroduction previous)
     {
         previous.gameObject.SetActive(false);
-        fight.gameObject.SetActive(true);
+        if (currentFight != null) Destroy(currentFight);
+        currentFight = GameObject.Instantiate<Fight>(fight);
+        currentFight.gameObject.SetActive(true);
+        currentFight.Setup(playerDeck, enemyDeck);
+      
     }
     public void WinFight()
     {
-        fight.gameObject.SetActive(false);
+        currentFight.gameObject.SetActive(false);
+        option1.rule = enemyDeck[Random.Range(0,enemyDeck.Count)];
+        option1.GetComponent<CardRenderer>().UpdateLayout();
+        option2.rule = enemyDeck[Random.Range(0, enemyDeck.Count)];
+        option2.GetComponent<CardRenderer>().UpdateLayout();
         wonScreen.gameObject.SetActive(true);
         wonScreen.Play();
     }
     public void LoseFight()
     {
-        fight.gameObject.SetActive(false);
+        currentFight.gameObject.SetActive(false);
         looseScreen.gameObject.SetActive(true);
         looseScreen.Play();
     }
@@ -49,11 +64,13 @@ public class Game : MonoBehaviour
     public void Equipe1()
     {
         Debug.Log("equipe card 1");
+        playerDeck.Add(option1.rule);
         LaunchFight(wonScreen);
     }
     public void Equipe2()
     {
         Debug.Log("equipe card 2");
+        playerDeck.Add(option2.rule);
         LaunchFight(wonScreen);
     }
     public void Loose1()

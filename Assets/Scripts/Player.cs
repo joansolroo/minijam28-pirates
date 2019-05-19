@@ -15,10 +15,9 @@ public class Player : MonoBehaviour
     [SerializeField] public int hp = 3;
     [SerializeField] public HP HPCounter;
 
-    [SerializeField] CardRule[] deckbuild;
+    [SerializeField] public List<CardRule> deckbuild;
     [SerializeField] Card cardTemplate;
 
-    [SerializeField] Button confirmButton;
 
     [Header("Card regions")]
     public CardRegion hand;
@@ -53,12 +52,6 @@ public class Player : MonoBehaviour
 
         }
         deck.Shuffle();
-
-        if (confirmButton)
-        {
-            confirmButton.interactable = false;
-            confirmButton.gameObject.SetActive(false);
-        }
     }
 
     public void Draw()
@@ -89,11 +82,7 @@ public class Player : MonoBehaviour
             }
             selected.AddCardLast(card);
         }
-        if (confirmButton)
-        {
-            confirmButton.gameObject.SetActive(true);
-            confirmButton.interactable = true;
-        }
+       
     }
     public void DiscardSelected()
     {
@@ -102,11 +91,7 @@ public class Player : MonoBehaviour
             discard.AddCardLast(card);
         }
         selected.Clear();
-        if (confirmButton)
-        {
-            confirmButton.interactable = false;
-            confirmButton.gameObject.SetActive(false);
-        }
+       
     }
 
     public void Heal(CardRule source)

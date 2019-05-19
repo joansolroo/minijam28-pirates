@@ -20,9 +20,14 @@ public class CardRenderer : MonoBehaviour {
 
     private void Start()
     {
+        UpdateLayout();
+    }
+
+    public void UpdateLayout()
+    {
         Color color = card.owner.color;
         factionIcon.sprite = card.owner.faction;
-        foreach(SpriteRenderer element in PlayerColoredElements)
+        foreach (SpriteRenderer element in PlayerColoredElements)
         {
             element.color = color;
         }
@@ -31,7 +36,7 @@ public class CardRenderer : MonoBehaviour {
         if (card.rule.movementAmount <= 0)
         {
             movement.transform.parent.gameObject.SetActive(false);
-            
+
         }
         else
         {
@@ -46,8 +51,9 @@ public class CardRenderer : MonoBehaviour {
         else
         {
             damage.text = "x" + card.rule.damageAmount;
-            range.text = "" +card.rule.attackMaxRange;
-            switch (card.rule.attackTarget) {
+            range.text = "" + card.rule.attackMaxRange;
+            switch (card.rule.attackTarget)
+            {
                 case CardRule.AttackTarget.All:
                     type.text = "*";
                     break;
@@ -58,7 +64,7 @@ public class CardRenderer : MonoBehaviour {
                     type.text = "S";
                     break;
             }
-            
+
         }
         if (card.rule.healAmount <= 0)
         {

@@ -6,21 +6,22 @@ public class Fight : MonoBehaviour {
 
     [SerializeField] Player player1;
     [SerializeField] Player player2;
+    [SerializeField] EnemyController enemyController;
     [SerializeField] Map map;
     [SerializeField] Game game;
 
+    [SerializeField] UnityEngine.UI.Button confirmButton;
     // Use this for initialization
-    void Start () {
-        Setup();
-	}
 	
-    void Setup()
+    public void Setup(List<CardRule> player1deck, List<CardRule> player2deck)
     {
+        player1.deckbuild = player1deck;
         player1.RemakeDeck();
         player1.hp = player1.maxHp;
         player1.enemy = player2;
         player1.ship.MoveTo(0,false);
 
+        player2.deckbuild = player2deck;
         player2.RemakeDeck();
         player2.hp = player2.maxHp;
         player2.enemy = player1;
@@ -34,16 +35,12 @@ public class Fight : MonoBehaviour {
         BeginTurn();
     }
 
-    private void OnDrawGizmos()
+    private void Update()
     {
-        //PreviewPlayer(player1);
-        //PreviewPlayer(player2);
-        
-    }
-    void PreviewPlayer(Player player)
-    {
+        if (confirmButton)
         {
-            
+            confirmButton.interactable = player1.selected.cards.Count>0;
+            confirmButton.gameObject.SetActive(player1.selected.cards.Count > 0);
         }
     }
     public void BeginTurn()
@@ -127,9 +124,8 @@ public class Fight : MonoBehaviour {
 
     void DummyAI()
     {
-      //  Debug.Log("Enemy movement");
-        Card c = player2.hand.cards[0];
-        player2.Select(c);
+        //  Debug.Log("Enemy movement");
+        enemyController.SelectCard();
     }
 
 
