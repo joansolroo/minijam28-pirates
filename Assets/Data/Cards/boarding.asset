@@ -13,17 +13,23 @@ MonoBehaviour:
   m_Name: boarding
   m_EditorClassIdentifier: 
   name: Boarding
-  description: 'Movement: 1
+  description: '1: Movement: 1
 
 
-    Special: BOARDING!'
+    4: BOARDING!'
   art: {fileID: 21300000, guid: db76535ac4da11d408695732ae9c3cb6, type: 3}
   color: {r: 0, g: 0.5628409, b: 0.735849, a: 1}
   movementAmount: 1
+  moveClip: {fileID: 8300000, guid: 955842083ef41ed48a6059034c682cec, type: 3}
   damageAmount: 0
   attackTarget: 0
   attackMaxRange: -1
+  attackClip: {fileID: 8300000, guid: 4f69966b6a1360944b184106a9c6d173, type: 3}
   healAmount: 0
   recoverCard: 0
+  healClip: {fileID: 0}
   boarding: 1
+  boardClip: {fileID: 0}
   scan: 0
+  scanClip: {fileID: 0}
+  explosionClip: {fileID: 0}

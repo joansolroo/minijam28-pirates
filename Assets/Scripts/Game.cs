@@ -37,7 +37,7 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-        if (introductionScreen.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        if (introductionScreen.gameObject.activeSelf && Input.GetMouseButtonDown(0))
         {
             LaunchEnnemyIntruduction(introductionScreen);
         }

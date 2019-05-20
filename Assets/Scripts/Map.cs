@@ -19,8 +19,7 @@ public class Map : MonoBehaviour {
         return Mathf.Min(tiles.Length - 1, Mathf.Max(0, position));
     }
     public Vector3 GetPosition(int cell)
-    {
-        
-        return tiles[cell].transform.position;
+    {  
+        return tiles[ClipPosition(cell)].transform.position;
     }
 }

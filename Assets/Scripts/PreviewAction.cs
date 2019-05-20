@@ -15,7 +15,7 @@ public class PreviewAction : MonoBehaviour
 
     int thisPos;
     int enemyPos;
-    public void DoPreviewAction()
+    public void DoPreviewAction(int step = -1, int pos1 = -1, int pos2 = -1)
     {
         curveCount = 0;
         foreach (LineRenderer curve in curves)
@@ -28,7 +28,9 @@ public class PreviewAction : MonoBehaviour
         }
         Player player = selected.player;
         Ship ship = player.ship;
+        if (pos1 == -1) pos1 = ship.position;
         Ship enemyShip = player.enemy.ship;
+        if (pos2 == -1) pos2 = enemyShip.position;
 
         Map map = Map.current;
         bool visible = false;
@@ -45,28 +47,36 @@ public class PreviewAction : MonoBehaviour
                     {
                         Gizmos.color = Color.red;
                         Vector3 size = new Vector3(0.7f, 0.7f, 0.7f);
-                        int targetPosition = Mathf.Min(enemyShip.position, ship.position + card.rule.attackMaxRange * ship.direction);
-                        if (card.rule.attackTarget == CardRule.AttackTarget.All)
+                        int targetPosition;
+                        if (ship.direction == 1)
+                        {
+                            targetPosition = Mathf.Min(pos2, pos1 + card.rule.attackMaxRange * ship.direction);
+                        }
+                        else
+                        {
+                            targetPosition = Mathf.Max(pos2, pos1 + card.rule.attackMaxRange * ship.direction);
+                        }
+                        if ((step == -1 || step == 0 || step == 2) && card.rule.attackTarget == CardRule.AttackTarget.All)
                         {
                            /*description.text += "Damage: " + card.rule.damageAmount + "\n"
                                 + "  Range: " + card.rule.attackMaxRange + "\n";*/
                             for (int i = 0; i < 3; ++i)
                             {
                                 int idx = targetPosition + enemyShip.direction * i;
-                                if (idx > ship.position)
+                                if (idx * ship.direction > pos1 * ship.direction)
                                 {
                                     Vector3 cell = map.GetPosition(idx);
 
                                     //Gizmos.DrawCube(cell, size);
                                     //Gizmos.DrawLine(this.transform.position, cell);
-                                    Vector3 fromPos = map.GetPosition(ship.position);
+                                    Vector3 fromPos = map.GetPosition(pos1);
                                     Vector3 toPos = map.GetPosition(targetPosition + enemyShip.direction * i);
-                                    int distance = Mathf.Abs(ship.position - (targetPosition + enemyShip.direction * i));
+                                    int distance = Mathf.Abs(pos1 - (targetPosition + enemyShip.direction * i));
                                     if (distance <= card.rule.attackMaxRange)
                                     {
-                                        AddAffected(this.transform.position, toPos, Color.red);
-                                        AddCurve(fromPos, toPos, Color.red);
-                                        Map.current.tiles[idx].SetHighlight(Color.red);
+                                        AddAffected(this.transform.position, toPos, card.rule.color);
+                                        AddCurve(fromPos, toPos, card.rule.color);
+                                        Map.current.tiles[idx].SetHighlight(card.rule.color);
                                     }
                                     else
                                     {
@@ -76,27 +86,27 @@ public class PreviewAction : MonoBehaviour
                                 }
                             }
                         }
-                        else if (card.rule.attackTarget == CardRule.AttackTarget.Moving)
+                        else if ((step == -1 || step == 2) && card.rule.attackTarget == CardRule.AttackTarget.Moving)
                         {
                             /*description.text += "If enemy moves:\n" + ">  Damage: " + card.rule.damageAmount + "\n"
                                 + ">  Range: " + card.rule.attackMaxRange + "\n";*/
                             for (int i = 1; i < 3; ++i)
                             {
                                 int idx = targetPosition + enemyShip.direction * i;
-                                if (idx > ship.position)
+                                if (idx*ship.direction > pos1*ship.direction)
                                 {
                                     Vector3 cell = map.GetPosition(idx);
                                     // Gizmos.DrawCube(cell, size);
                                     // Gizmos.DrawLine(this.transform.position, cell);
-                                    Vector3 fromPos = map.GetPosition(ship.position);
+                                    Vector3 fromPos = map.GetPosition(pos1);
                                     Vector3 toPos = map.GetPosition(targetPosition + enemyShip.direction * i);
 
-                                    int distance = Mathf.Abs(ship.position - (targetPosition + enemyShip.direction * i));
+                                    int distance = Mathf.Abs(pos1 - (targetPosition + enemyShip.direction * i));
                                     if (distance <= card.rule.attackMaxRange)
                                     {
-                                        AddAffected(this.transform.position, toPos, Color.red);
-                                        Map.current.tiles[idx].SetHighlight(Color.red);
-                                        AddCurve(fromPos, toPos, Color.red);
+                                        AddAffected(this.transform.position, toPos, card.rule.color);
+                                        Map.current.tiles[idx].SetHighlight(card.rule.color);
+                                        AddCurve(fromPos, toPos, card.rule.color);
                                     }
                                     else
                                     {
@@ -106,27 +116,27 @@ public class PreviewAction : MonoBehaviour
                                 }
                             }
                         }
-                        else if (card.rule.attackTarget == CardRule.AttackTarget.notMoving)
+                        else if ((step == -1 || step == 0) && card.rule.attackTarget == CardRule.AttackTarget.notMoving)
                         {
                             /*description.text += "If enemy NOT moves:\n"
                                 + ">  Damage: " + card.rule.damageAmount + "\n"
                                  + ">  Range: " + card.rule.attackMaxRange + "\n";*/
                             int idx = targetPosition;
-                            if (idx > ship.position)
+                            if (idx * ship.direction > pos1 * ship.direction)
                             {
                                 Vector3 cell = map.GetPosition(idx);
                                 //Gizmos.DrawCube(cell, size);
                                 //Gizmos.DrawLine(this.transform.position, cell);
 
-                                Vector3 fromPos = map.GetPosition(ship.position);
+                                Vector3 fromPos = map.GetPosition(pos1);
                                 Vector3 toPos = map.GetPosition(targetPosition);
 
-                                int distance = Mathf.Abs(ship.position - targetPosition);
+                                int distance = Mathf.Abs(pos1 - targetPosition);
                                 if (distance <= card.rule.attackMaxRange)
                                 {
-                                    AddAffected(this.transform.position, toPos, Color.red);
-                                    Map.current.tiles[idx].SetHighlight(Color.red);
-                                    AddCurve(fromPos, toPos, Color.red);
+                                    AddAffected(this.transform.position, toPos, card.rule.color);
+                                    Map.current.tiles[idx].SetHighlight(card.rule.color);
+                                    AddCurve(fromPos, toPos, card.rule.color);
                                 }
                                 else
                                 {
@@ -138,7 +148,7 @@ public class PreviewAction : MonoBehaviour
 
 
                     }
-                    if (card.rule.movementAmount > 0)
+                    if ((step == -1 || step == 1) && card.rule.movementAmount > 0)
                     {
                         /*description.text += "Movement: " + card.rule.movementAmount + "\n";
                         if(card.rule.boarding)
@@ -147,14 +157,14 @@ public class PreviewAction : MonoBehaviour
                         }*/
                         for (int i = 0; i <= card.rule.movementAmount; ++i)
                         {
-                            int idx = ship.position + ship.direction * i;
+                            int idx = pos1 + ship.direction * i;
                             Vector3 cell = map.GetPosition(idx);
-                            Map.current.tiles[idx].SetHighlight(Color.cyan);
+                            Map.current.tiles[idx].SetHighlight(card.rule.color);
 
-                            Vector3 fromPos = map.GetPosition(ship.position);
-                            Vector3 toPos = map.GetPosition(ship.position + ship.direction * card.rule.movementAmount);
-                            AddCurve(fromPos, toPos, Color.cyan);
-                            AddAffected(this.transform.position, toPos, Color.cyan);
+                            Vector3 fromPos = map.GetPosition(pos1);
+                            Vector3 toPos = map.GetPosition(pos1 + ship.direction * card.rule.movementAmount);
+                            AddCurve(fromPos, toPos, card.rule.color);
+                            AddAffected(this.transform.position, toPos, card.rule.color);
                         }
 
                         /*
@@ -162,25 +172,25 @@ public class PreviewAction : MonoBehaviour
                         Gizmos.color = Color.blue;
                         for (int i = 0; i <= card.rule.movementAmount; ++i)
                         {
-                            Vector3 cell = map.GetPosition(ship.position + ship.direction * i);
+                            Vector3 cell = map.GetPosition(pos1 + ship.direction * i);
                             Gizmos.DrawCube(cell, size);
                             Gizmos.DrawLine(this.transform.position, cell);
                         }*/
 
                     }
 
-                    if (card.rule.healAmount > 0)
+                    if ((step == -1 || step == 3) && card.rule.healAmount > 0)
                     {
                         //description.text += "Heal: " + card.rule.healAmount + "\n";
-                        int idx = ship.position;
+                        int idx = pos1;
                         Vector3 cell = map.GetPosition(idx);
-                        Map.current.tiles[idx].SetHighlight(Color.green);
-                        AddAffected(this.transform.position, cell, Color.green);
+                        Map.current.tiles[idx].SetHighlight(card.rule.color);
+                        AddAffected(this.transform.position, cell, card.rule.color);
                         /*
                         Gizmos.color = Color.green;
                         {
                             Vector3 size = new Vector3(0.8f, 0.05f, 0.8f);
-                            Vector3 cell = map.GetPosition(ship.position);
+                            Vector3 cell = map.GetPosition(pos1);
                             Gizmos.DrawCube(cell, size);
                             Gizmos.DrawLine(this.transform.position, cell);
 

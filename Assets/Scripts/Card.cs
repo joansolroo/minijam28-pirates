@@ -43,7 +43,7 @@ public class Card : MonoBehaviour {
         if (rule.movementAmount > 0)
         {
             owner.ship.MoveTo(owner.ship.position+ owner.ship.direction*rule.movementAmount);
-
+            owner.ship.audioSource.PlayOneShot(this.rule.moveClip);
             return true;
         }
         else
@@ -56,8 +56,9 @@ public class Card : MonoBehaviour {
     {
         if (rule.damageAmount > 0)
         {
-            
-            if(rule.attackMaxRange > Mathf.Abs(owner.ship.position - owner.enemy.ship.position))
+            int pos1 = owner.ship.position;
+            int pos2 = owner.enemy.ship.position;
+            if (rule.attackMaxRange > Mathf.Abs(pos1 - pos2))
             {
                 bool hit = ((rule.attackTarget == CardRule.AttackTarget.All)
                            || (rule.attackTarget == CardRule.AttackTarget.Moving && enemyMoved));
@@ -65,11 +66,23 @@ public class Card : MonoBehaviour {
                 if (!hit)
                 {
                     Debug.Log("Attack: attack missed");
+                    ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                    parameter.startColor = Color.gray;
+                    map.tiles[pos2-owner.enemy.ship.direction].emission.Emit(parameter, Random.Range(5, 15));
+                    owner.ship.audioSource.PlayOneShot(this.rule.attackClip);
                 }
                 else
                 {
                     Debug.Log("Attack: attack hit");
+
                     owner.enemy.Hurt(rule);
+
+                    ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                    parameter.startColor = owner.enemy.color;
+                    map.tiles[pos2].emission.Emit(parameter, Random.Range(30, 50));
+                    owner.ship.audioSource.PlayOneShot(this.rule.attackClip);
+                    owner.enemy.ship.audioSource.clip = this.rule.explosionClip;
+                    owner.enemy.ship.audioSource.PlayDelayed(0.25f);
                 }
 
                 return hit;
@@ -83,12 +96,12 @@ public class Card : MonoBehaviour {
         }
         return false;
     }
-    public bool DoAttackNotMoved(bool enemyWillMove)
+    public bool DoAttackNotMoved(bool enemyWillMove,int pos1, int pos2)
     {
         if (rule.damageAmount > 0)
         {
 
-            if (rule.attackMaxRange >= Mathf.Abs(owner.ship.position - owner.enemy.ship.position))
+            if (rule.attackMaxRange >= Mathf.Abs(pos1 - pos2))
             {
                 bool hit = ((rule.attackTarget == CardRule.AttackTarget.All)
                            || (rule.attackTarget == CardRule.AttackTarget.notMoving && !enemyWillMove));
@@ -96,11 +109,23 @@ public class Card : MonoBehaviour {
                 if (!hit)
                 {
                     Debug.Log("Attack: attack missed");
+                    ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                    parameter.startColor = Color.gray;
+                    map.tiles[pos2].emission.Emit(parameter, Random.Range(5, 15));
+                    owner.ship.audioSource.PlayOneShot(this.rule.attackClip);
                 }
                 else
                 {
                     Debug.Log("Attack: attack hit");
+                    
                     owner.enemy.Hurt(rule);
+
+                    ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                    parameter.startColor = owner.enemy.color;
+                    map.tiles[pos2].emission.Emit(parameter, Random.Range(30, 50));
+                    owner.ship.audioSource.PlayOneShot(this.rule.attackClip);
+                    owner.enemy.ship.audioSource.clip = this.rule.explosionClip;
+                    owner.enemy.ship.audioSource.PlayDelayed(0.25f);
                 }
 
                 return hit;
@@ -117,12 +142,27 @@ public class Card : MonoBehaviour {
 
     public void DoSpecial()
     {
-        owner.Heal(this.rule);
+        
+        if (this.rule.healAmount > 0)
+        {
+            owner.Heal(this.rule);
+
+            ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+            parameter.startColor = rule.color;
+            map.tiles[owner.ship.position].emission.Emit(parameter, Random.Range(5, 15));
+            owner.ship.audioSource.PlayOneShot(this.rule.healClip);
+        }
         if (rule.scan)
         {
             foreach (Card c in owner.enemy.hand.cards)
             {
+                
                 c.SetVisible(true);
+
+                ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                parameter.startColor = rule.color;
+                map.tiles[owner.enemy.ship.position].emission.Emit(parameter, Random.Range(5, 15));
+                owner.ship.audioSource.PlayOneShot(this.rule.scanClip);
             }
         }
         if(rule.boarding)
@@ -130,6 +170,11 @@ public class Card : MonoBehaviour {
             if(Mathf.Abs(owner.ship.position - owner.enemy.ship.position)<=1)
             {
                 Fight.current.OnBoard(owner, owner.enemy);
+
+                ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                parameter.startColor = owner.color;
+                map.tiles[owner.enemy.ship.position].emission.Emit(parameter, Random.Range(5, 15));
+                owner.ship.audioSource.PlayOneShot(this.rule.boardClip);
             }
         }
     }

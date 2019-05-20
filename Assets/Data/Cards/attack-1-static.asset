@@ -13,22 +13,26 @@ MonoBehaviour:
   m_Name: attack-1-static
   m_EditorClassIdentifier: 
   name: Railgun
-  description: 'Attack:
+  description: '2: Attack:
 
     If enemy DOESNT move:
 
     > Damage: 2
 
-    > Range: 10
-
-    Movement: 1'
+    > Range: 10'
   art: {fileID: 21300000, guid: 6362423320871d943b585872ac3ba6bf, type: 3}
   color: {r: 0.654902, g: 0.24705884, b: 0.24705884, a: 1}
   movementAmount: 0
+  moveClip: {fileID: 0}
   damageAmount: 2
   attackTarget: 1
   attackMaxRange: 10
+  attackClip: {fileID: 8300000, guid: b847d2169f129734983634b2125f3c02, type: 3}
   healAmount: 0
   recoverCard: 0
+  healClip: {fileID: 0}
   boarding: 0
+  boardClip: {fileID: 0}
   scan: 0
+  scanClip: {fileID: 0}
+  explosionClip: {fileID: 8300000, guid: bd5e55f8b1a658647a32767917d52e95, type: 3}

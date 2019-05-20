@@ -83,7 +83,18 @@ public class Player : MonoBehaviour
             selected.AddCardLast(card);
             preview.DoPreviewAction();
         }
-       
+
+    }
+    public void DeSelect(Card card)
+    {
+        if (selected.cards.Count > 0)
+        {
+            Card previous = selected.cards[0];
+            selected.Remove(previous);
+            hand.AddCardLast(previous);
+        }
+        preview.DoPreviewAction();
+
     }
     public void RevealSelected()
     {

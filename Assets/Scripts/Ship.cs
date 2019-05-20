@@ -8,6 +8,7 @@ public class Ship : MonoBehaviour {
     [SerializeField] public int position;
     [SerializeField] public int direction;
     [SerializeField] public bool moved;
+    public AudioSource audioSource;
 
     [SerializeField] public SpriteRenderer[] shipRenderer;
     [SerializeField] SpriteRenderer shipBase;
