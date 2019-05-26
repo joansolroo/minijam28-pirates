@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   clip: {fileID: 8300000, guid: 1ccd7321c9dad6f4592899ee3160022a, type: 3}
+  color: {r: 0, g: 0.3974307, b: 0.5188679, a: 1}
   ruleType: 2
   target: 0
   amount: 2

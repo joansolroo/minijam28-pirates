@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Heal 1
   clip: {fileID: 8300000, guid: b5f84b4fc0aa94f4f8e8f23d6f235509, type: 3}
+  color: {r: 0.043702837, g: 0.545, b: 0.38625595, a: 1}
   ruleType: 16
   target: 0
   amount: 1

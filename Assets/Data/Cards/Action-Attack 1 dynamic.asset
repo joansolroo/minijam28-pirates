@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Action-Attack 1 dynamic
   m_EditorClassIdentifier: 
   name: 
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 39918e37dea1bc94096974b8a7f7b419, type: 3}
+  color: {r: 0.6981132, g: 0.055980783, b: 0.18678565, a: 1}
   ruleType: 4
   target: 2
   amount: 1
