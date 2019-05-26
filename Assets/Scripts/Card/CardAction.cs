@@ -8,6 +8,7 @@ public class CardAction : ScriptableObject
 
     public string name;
     public AudioClip clip;
+    public Color color;
 
     // TODO: change this for polymorphism
     public enum RuleType
@@ -104,7 +105,6 @@ public class CardAction : ScriptableObject
                 }
                 return hit;
             }
-            return false;
         }
         else if (ruleType == RuleType.move)
         {
@@ -198,8 +198,8 @@ public class CardAction : ScriptableObject
                         if (distance <= this.range)
                         {
                             //AddAffected(this.transform.position, toPos, card.rule.color);
-                            preview.Set(card, this, fromPos, toPos, card.rule.color);
-                            Map.current.tiles[idx].SetHighlight(card.rule.color);
+                            preview.Set(card, this, fromPos, toPos, this.color);
+                            Map.current.tiles[idx].SetHighlight(this.color);
                         }
                         else
                         {
@@ -224,8 +224,8 @@ public class CardAction : ScriptableObject
                         if (distance <= this.range)
                         {
                             //AddAffected(this.transform.position, toPos, card.rule.color);
-                            Map.current.tiles[idx].SetHighlight(card.rule.color);
-                            preview.Set(card, this, fromPos, toPos, card.rule.color);
+                            Map.current.tiles[idx].SetHighlight(this.color);
+                            preview.Set(card, this, fromPos, toPos, this.color);
                         }
                         else
                         {
@@ -247,8 +247,8 @@ public class CardAction : ScriptableObject
                     if (distance <= this.range)
                     {
                         //AddAffected(this.transform.position, toPos, card.rule.color);
-                        Map.current.tiles[idx].SetHighlight(card.rule.color);
-                        preview.Set(card, this, fromPos, toPos, card.rule.color);
+                        Map.current.tiles[idx].SetHighlight(this.color);
+                        preview.Set(card, this, fromPos, toPos, this.color);
                     }
                     else
                     {
@@ -266,10 +266,10 @@ public class CardAction : ScriptableObject
             {
                 int idx = pos1 + ownerShip.direction * i;
                 Vector3 cell = map.GetPosition(idx);
-                Map.current.tiles[idx].SetHighlight(card.rule.color);
+                Map.current.tiles[idx].SetHighlight(this.color);
 
                 Vector3 toPos = map.GetPosition(pos1prev + ownerShip.direction * this.amount);
-                preview.Set(card, this, fromPos, toPos, card.rule.color);
+                preview.Set(card, this, fromPos, toPos, this.color);
                 //AddAffected(this.transform.position, toPos, card.rule.color);
             }
 
@@ -279,7 +279,7 @@ public class CardAction : ScriptableObject
         {
             int idx = pos1;
             Vector3 cell = map.GetPosition(idx);
-            Map.current.tiles[idx].SetHighlight(card.rule.color);
+            Map.current.tiles[idx].SetHighlight(this.color);
             //AddAffected(this.transform.position, cell, card.rule.color);
         }
     }
