@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour {
 
     [SerializeField] Player player;
-    [SerializeField] public EnemyData data;
+    [SerializeField] public CharacterData data;
 
     public void SelectCard()
     {

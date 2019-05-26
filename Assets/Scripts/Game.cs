@@ -12,8 +12,8 @@ public class Game : MonoBehaviour
 
     Fight currentFight;
 
-    [SerializeField] List<CardRule> playerDeck;
-    [SerializeField] List<CardRule> enemyDeck;
+    [SerializeField] List<CardData> playerDeck;
+    [SerializeField] List<CardData> enemyDeck;
 
     [SerializeField] Card option1;
     [SerializeField] Card option2;
@@ -21,8 +21,10 @@ public class Game : MonoBehaviour
     [SerializeField] Card loseOption1;
     [SerializeField] Card loseOption2;
 
-    [SerializeField] EnemyData[] ennemies;
+    [SerializeField] CharacterData[] ennemies;
     private int currentEnnemy;
+
+    [SerializeField] bool skipIntro = false;
 
     public void Start()
     {
@@ -31,8 +33,15 @@ public class Game : MonoBehaviour
         looseScreen.gameObject.SetActive(false);
         wonScreen.gameObject.SetActive(false);
 
-        introductionScreen.Play();
         currentEnnemy = 0;
+        if (skipIntro)
+        {
+            LaunchFight(introductionScreen);
+        }
+        else
+        {
+            introductionScreen.Play();
+        }
     }
 
     void Update()

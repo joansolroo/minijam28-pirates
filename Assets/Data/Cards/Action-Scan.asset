@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47bdd8c3ddc9c3e45acc0bce3b4c439e, type: 3}
+  m_Name: Action-Scan
+  m_EditorClassIdentifier: 
+  name: Scan
+  clip: {fileID: 8300000, guid: b79bf3f46024af649a359b6c1a2ce03d, type: 3}
+  ruleType: 8
+  target: 0
+  amount: 1
+  range: 1
+  resolutionDuration: 1

@@ -27,9 +27,17 @@ public class CardRegion : MonoBehaviour
     [SerializeField] public Player player;
     public enum Region
     {
-        Table, Hand, Selected, Deck, Exhile, Discard
+        Table, Hand, Selected, Deck, Exhile, Discard, Passive
     }
+    public enum Layout
+    {
+        Horizontal, Vertical, Single
+    }
+
     [SerializeField] public Region region;
+    [SerializeField] public Layout stacking;
+    [SerializeField] public int maxSize = 1;
+
     [SerializeField] public List<Card> cards = new List<Card>();
     [SerializeField] public TextMesh labelText;
 
@@ -62,9 +70,9 @@ public class CardRegion : MonoBehaviour
 
     public bool Remove(Card card)
     {
-        for(int i = 0; i < cards.Count;++i)
+        for (int i = 0; i < cards.Count; ++i)
         {
-            if( cards[i] == card)
+            if (cards[i] == card)
             {
                 cards.RemoveAt(i);
                 labelText.text = label + " \u00A0(" + cards.Count + ")";
@@ -96,12 +104,28 @@ public class CardRegion : MonoBehaviour
         UpdateLayout();
     }
 
+    public Vector3 GetPosition(int index)
+    {
+        if (stacking == Layout.Horizontal)
+        {
+            return new Vector3(index * Card.CARD_SIZE.x, 0, 0);
+        }
+        else if (stacking == Layout.Vertical)
+        {
+            return new Vector3(0, (index + 1) * Card.CARD_SIZE.z, 0);
+        }
+        else
+        {
+            return new Vector3(0, Card.CARD_SIZE.z, 0);
+        }
+    }
     public void UpdateLayout()
     {
         if (region == Region.Hand)
         {
-            for (int c = 0; c < cards.Count; ++c){
-                cards[c].MoveTo(this, new Vector3(c* Card.CARD_SIZE.x, 0,0));
+            for (int c = 0; c < cards.Count; ++c)
+            {
+                cards[c].MoveTo(this, new Vector3(c * Card.CARD_SIZE.x, 0, 0));
             }
         }
         else if (region == Region.Selected)
@@ -115,14 +139,14 @@ public class CardRegion : MonoBehaviour
         {
             for (int c = 0; c < cards.Count; ++c)
             {
-                cards[c].MoveTo(this, new Vector3(0, (c+1) * Card.CARD_SIZE.z, 0));
+                cards[c].MoveTo(this, new Vector3(0, (c + 1) * Card.CARD_SIZE.z, 0));
             }
         }
         else if (region == Region.Discard)
         {
             for (int c = 0; c < cards.Count; ++c)
             {
-                cards[c].MoveTo(this, new Vector3(0, (c+1) * Card.CARD_SIZE.z, 0));
+                cards[c].MoveTo(this, new Vector3(0, (c + 1) * Card.CARD_SIZE.z, 0));
             }
         }
         else if (region == Region.Exhile)
@@ -136,6 +160,9 @@ public class CardRegion : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(this.transform.position, new Vector3(Card.CARD_SIZE.x, Card.CARD_SIZE.z, Card.CARD_SIZE.y));
+        for (int c = 0; c < maxSize; ++c)
+        {
+            Gizmos.DrawWireCube(this.transform.position+GetPosition(c), new Vector3(Card.CARD_SIZE.x, Card.CARD_SIZE.z, Card.CARD_SIZE.y));
+        }
     }
 }

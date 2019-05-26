@@ -7,9 +7,9 @@ public class Card : MonoBehaviour {
     [SerializeField] public Map map;
     [SerializeField] public Player owner;
     public CardRegion region;
-    [SerializeField] public CardRule rule;
+    [SerializeField] public CardData rule;
 
-    public static Vector3 CARD_SIZE = new Vector3(3.2f, 4, 0.3f);
+    public static Vector3 CARD_SIZE = new Vector3(3.2f, 4.5f, 0.15f);
 
     public bool visible = false;
 
@@ -29,18 +29,17 @@ public class Card : MonoBehaviour {
     }
     public bool WillMove()
     {
-        if (rule.movementAmount > 0)
-        {
-             return true;
-        }
-        else
-        {
-            return false;
-        }
+        return (rule.rules[1] != null && rule.rules[1].amount > 0);
+       
     }
     public bool DoMove()
     {
-        if (rule.movementAmount > 0)
+        if (rule.rules[1] != null)
+        {
+            return rule.rules[1].Resolve(this);
+        }
+        return false;
+       /* if (rule.movementAmount > 0)
         {
             owner.ship.MoveTo(owner.ship.position+ owner.ship.direction*rule.movementAmount);
             owner.ship.audioSource.PlayOneShot(this.rule.moveClip);
@@ -49,19 +48,25 @@ public class Card : MonoBehaviour {
         else
         {
             return false;
-        }
+        }*/
     }
 
     public bool DoAttackMoved(bool enemyMoved)
     {
+        if (rule.rules[2] != null)
+        {
+            return rule.rules[2].Resolve(this);
+        }
+        return false;
+        /*
         if (rule.damageAmount > 0)
         {
             int pos1 = owner.ship.position;
             int pos2 = owner.enemy.ship.position;
             if (rule.attackMaxRange > Mathf.Abs(pos1 - pos2))
             {
-                bool hit = ((rule.attackTarget == CardRule.AttackTarget.All)
-                           || (rule.attackTarget == CardRule.AttackTarget.Moving && enemyMoved));
+                bool hit = ((rule.attackTarget == CardData.AttackTarget.All)
+                           || (rule.attackTarget == CardData.AttackTarget.Moving && enemyMoved));
 
                 if (!hit)
                 {
@@ -94,17 +99,23 @@ public class Card : MonoBehaviour {
             }
             
         }
-        return false;
+        return false;*/
     }
     public bool DoAttackNotMoved(bool enemyWillMove,int pos1, int pos2)
     {
+        if (rule.rules[0] != null)
+        {
+            return rule.rules[0].Resolve(this);
+        }
+        return false;
+        /*
         if (rule.damageAmount > 0)
         {
 
             if (rule.attackMaxRange >= Mathf.Abs(pos1 - pos2))
             {
-                bool hit = ((rule.attackTarget == CardRule.AttackTarget.All)
-                           || (rule.attackTarget == CardRule.AttackTarget.notMoving && !enemyWillMove));
+                bool hit = ((rule.attackTarget == CardData.AttackTarget.All)
+                           || (rule.attackTarget == CardData.AttackTarget.notMoving && !enemyWillMove));
 
                 if (!hit)
                 {
@@ -137,15 +148,22 @@ public class Card : MonoBehaviour {
             }
 
         }
-        return false;
+        return false;*/
     }
-
+    public void DoSpecial()
+    {
+        if (rule.rules[3] != null)
+        {
+            rule.rules[3].Resolve(this);
+        }
+    }
+    /*
     public void DoSpecial()
     {
         
         if (this.rule.healAmount > 0)
         {
-            owner.Heal(this.rule);
+            owner.Heal(this.rule.healAmount, this.rule.recoverCard);
 
             ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
             parameter.startColor = rule.color;
@@ -178,6 +196,7 @@ public class Card : MonoBehaviour {
             }
         }
     }
+    */
 
     public void SetVisible(bool visible)
     {

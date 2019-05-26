@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "cardRule", menuName = "Cards/rule", order = 1)]
-public class CardRule : ScriptableObject {
+[CreateAssetMenu(fileName = "cardData", menuName = "Cards/card", order = 1)]
+public class CardData : ScriptableObject {
 
     public string name;
     [TextArea(5, 5)]
@@ -46,6 +46,19 @@ public class CardRule : ScriptableObject {
     public AudioClip scanClip;
     #endregion
 
-
     public AudioClip explosionClip;
+
+    public CardAction[] rules = new CardAction[4];
+
+    public string GetDescription()
+    {
+        string d = name + '\n';
+        for(int r = 0; r < rules.Length;++r)
+        {
+            d += '-'+(r+1) + ':';
+            d += rules[r] != null ? rules[r].name : "no action";
+            d += '\n';
+        }
+        return d;
+    }
 }

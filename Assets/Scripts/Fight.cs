@@ -19,12 +19,12 @@ public class Fight : MonoBehaviour
     [SerializeField] Text Resolution3;
     [SerializeField] Text Resolution4;
 
-    [SerializeField] PreviewAction preview1;
-    [SerializeField] PreviewAction preview2;
+    [SerializeField] PreviewManager preview1;
+    [SerializeField] PreviewManager preview2;
     // Use this for initialization
 
     public static Fight current;
-    public void Setup(List<CardRule> player1deck, EnemyData enemy)
+    public void Setup(List<CardData> player1deck, CharacterData enemy)
     {
         fightOver = false;
         current = this;
@@ -64,6 +64,14 @@ public class Fight : MonoBehaviour
         Resolution2.gameObject.SetActive(false);
         Resolution3.gameObject.SetActive(false);
         Resolution4.gameObject.SetActive(false);
+
+        player1.ship.StartTurn();
+        player2.ship.StartTurn();
+    }
+    void EndTurn()
+    {
+        player1.ship.EndTurn();
+        player2.ship.EndTurn();
     }
 
     public void OnResolveRequest()
@@ -76,11 +84,6 @@ public class Fight : MonoBehaviour
         {
             Debug.Log("no card picked");
         }
-    }
-
-    public void ResolveAction()
-    {
-
     }
 
 
@@ -108,6 +111,7 @@ public class Fight : MonoBehaviour
         BeginTurn();
         isSolving = false;
     }
+
     IEnumerator SolveTurn()
     {
         if (!isSolving)
@@ -164,20 +168,7 @@ public class Fight : MonoBehaviour
                     ship2hit |= c2.DoAttackNotMoved(ship1moved, pos2, pos1);
                 }
 
-            }/*
-            if (ship1hit)
-            {
-                ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
-                parameter.startColor = player2.color;
-                map.tiles[pos2].emission.Emit(parameter, Random.Range(10, 20));
             }
-            
-            if (ship2hit)
-            {
-                ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
-                parameter.startColor = player1.color;
-                map.tiles[pos1].emission.Emit(parameter, Random.Range(20, 50));
-            }*/
             
             if (ship1hit || ship2hit)
             {

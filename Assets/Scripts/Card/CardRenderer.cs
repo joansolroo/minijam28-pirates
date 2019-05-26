@@ -54,13 +54,13 @@ public class CardRenderer : MonoBehaviour {
             range.text = "" + card.rule.attackMaxRange;
             switch (card.rule.attackTarget)
             {
-                case CardRule.AttackTarget.All:
+                case CardData.AttackTarget.All:
                     type.text = "*";
                     break;
-                case CardRule.AttackTarget.Moving:
+                case CardData.AttackTarget.Moving:
                     type.text = "M";
                     break;
-                case CardRule.AttackTarget.notMoving:
+                case CardData.AttackTarget.notMoving:
                     type.text = "S";
                     break;
             }

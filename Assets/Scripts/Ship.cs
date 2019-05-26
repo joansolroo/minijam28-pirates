@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ship : MonoBehaviour {
 
     [SerializeField] Player owner;
+    [SerializeField] public int previousPosition;
     [SerializeField] public int position;
     [SerializeField] public int direction;
     [SerializeField] public bool moved;
@@ -31,10 +32,16 @@ public class Ship : MonoBehaviour {
         shipRenderer[0].transform.localPosition = initPos + Vector3.up * Mathf.Sin(Time.time * 3)*0.1f;
         shipRenderer[0].transform.localEulerAngles = initRot + new Vector3(Mathf.Sin(Time.time * 3) * 0.5f,0, Mathf.Sin(Time.time * 5) * 3f);
     }
+    public void StartTurn()
+    {
+        previousPosition = position;
+        moved = false;
+    }
     public void MoveTo(int targetPosition, bool animate = true)
     {
         if(targetPosition!=position)
         {
+            previousPosition = position;
             Vector3 to = Map.current.GetPosition(targetPosition);
             if (animate)
             {
@@ -46,7 +53,10 @@ public class Ship : MonoBehaviour {
                 this.transform.position = to;
             }
             this.position = targetPosition;
+            moved = true;
         }
+    }
+    public void EndTurn() {
     }
     IEnumerator DoMove(Vector3 from, Vector3 to)
     {

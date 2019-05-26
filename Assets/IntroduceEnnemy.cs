@@ -18,7 +18,7 @@ public class IntroduceEnnemy : MonoBehaviour
         dialogPrefab.SetActive(false);
     }
 
-    public void Setup(EnemyData ennemy)
+    public void Setup(CharacterData ennemy)
     {
         if(temp.Count > 0)
         {

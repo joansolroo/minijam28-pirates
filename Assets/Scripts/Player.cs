@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] public int hp = 3;
     [SerializeField] public HP HPCounter;
 
-    [SerializeField] public List<CardRule> deckbuild;
+    [SerializeField] public List<CardData> deckbuild;
     [SerializeField] Card cardTemplate;
 
 
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     public CardRegion exhile;
 
     List<Card> deckContainer = new List<Card>();
-    [SerializeField] PreviewAction preview;
+    [SerializeField] PreviewManager preview;
 
     public void RemakeDeck()
     {
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
             }
             deckContainer.Clear();
         }
-        foreach (CardRule rule in deckbuild)
+        foreach (CardData rule in deckbuild)
         {
             Card card = GameObject.Instantiate<Card>(cardTemplate);
             card.owner = this;
@@ -115,14 +115,14 @@ public class Player : MonoBehaviour
 
     }
 
-    public void Heal(CardRule source)
+    public void Heal(int amount, bool recoverCard)
     {
-        if (source.healAmount > 0)
+        if (amount > 0)
         {
-            this.hp = Mathf.Min(this.maxHp, this.hp + source.healAmount);
+            this.hp = Mathf.Min(this.maxHp, this.hp + amount);
             HPCounter.UpdateHP();
         }
-        if (source.recoverCard)
+        if (recoverCard)
         {
             Card repaired = exhile.Draw();
             if (repaired)
@@ -131,9 +131,9 @@ public class Player : MonoBehaviour
             }
         }
     }
-    public void Hurt(CardRule source)
+    public void Hurt(int amount)
     {
-        this.hp -= source.damageAmount;
+        this.hp -= amount;
 
         Card c = deck.Draw();
         if (c == null)

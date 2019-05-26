@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PreviewAction : MonoBehaviour
+public class PreviewManager : MonoBehaviour
 {
     [SerializeField] CardRegion selected;
     [SerializeField] LineRenderer[] curves;
+    [SerializeField] ActionPreview[] previews;
 
     [SerializeField] Material fullLine;
     [SerializeField] Material dottedLine;
@@ -43,10 +44,13 @@ public class PreviewAction : MonoBehaviour
                 if (card.visible)
                 {
                     visible = true;
+                    Vector3 fromPos = map.GetPosition(pos1);
+                    {
+                        Vector3 toPos = map.GetPosition(pos1 + enemyShip.direction * card.rule.attackMaxRange);
+                        AddCurve(fromPos, toPos, Color.gray);
+                    }
                     if (card.rule.damageAmount > 0)
                     {
-                        Gizmos.color = Color.red;
-                        Vector3 size = new Vector3(0.7f, 0.7f, 0.7f);
                         int targetPosition;
                         if (ship.direction == 1)
                         {
@@ -56,7 +60,7 @@ public class PreviewAction : MonoBehaviour
                         {
                             targetPosition = Mathf.Max(pos2, pos1 + card.rule.attackMaxRange * ship.direction);
                         }
-                        if ((step == -1 || step == 0 || step == 2) && card.rule.attackTarget == CardRule.AttackTarget.All)
+                        if ((step == -1 || step == 0 || step == 2) && card.rule.attackTarget == CardData.AttackTarget.All)
                         {
                            /*description.text += "Damage: " + card.rule.damageAmount + "\n"
                                 + "  Range: " + card.rule.attackMaxRange + "\n";*/
@@ -69,7 +73,7 @@ public class PreviewAction : MonoBehaviour
 
                                     //Gizmos.DrawCube(cell, size);
                                     //Gizmos.DrawLine(this.transform.position, cell);
-                                    Vector3 fromPos = map.GetPosition(pos1);
+                                   // Vector3 fromPos = map.GetPosition(pos1);
                                     Vector3 toPos = map.GetPosition(targetPosition + enemyShip.direction * i);
                                     int distance = Mathf.Abs(pos1 - (targetPosition + enemyShip.direction * i));
                                     if (distance <= card.rule.attackMaxRange)
@@ -86,7 +90,7 @@ public class PreviewAction : MonoBehaviour
                                 }
                             }
                         }
-                        else if ((step == -1 || step == 2) && card.rule.attackTarget == CardRule.AttackTarget.Moving)
+                        else if ((step == -1 || step == 2) && card.rule.attackTarget == CardData.AttackTarget.Moving)
                         {
                             /*description.text += "If enemy moves:\n" + ">  Damage: " + card.rule.damageAmount + "\n"
                                 + ">  Range: " + card.rule.attackMaxRange + "\n";*/
@@ -98,7 +102,7 @@ public class PreviewAction : MonoBehaviour
                                     Vector3 cell = map.GetPosition(idx);
                                     // Gizmos.DrawCube(cell, size);
                                     // Gizmos.DrawLine(this.transform.position, cell);
-                                    Vector3 fromPos = map.GetPosition(pos1);
+                                    //Vector3 fromPos = map.GetPosition(pos1);
                                     Vector3 toPos = map.GetPosition(targetPosition + enemyShip.direction * i);
 
                                     int distance = Mathf.Abs(pos1 - (targetPosition + enemyShip.direction * i));
@@ -116,7 +120,7 @@ public class PreviewAction : MonoBehaviour
                                 }
                             }
                         }
-                        else if ((step == -1 || step == 0) && card.rule.attackTarget == CardRule.AttackTarget.notMoving)
+                        else if ((step == -1 || step == 0) && card.rule.attackTarget == CardData.AttackTarget.notMoving)
                         {
                             /*description.text += "If enemy NOT moves:\n"
                                 + ">  Damage: " + card.rule.damageAmount + "\n"
@@ -128,7 +132,7 @@ public class PreviewAction : MonoBehaviour
                                 //Gizmos.DrawCube(cell, size);
                                 //Gizmos.DrawLine(this.transform.position, cell);
 
-                                Vector3 fromPos = map.GetPosition(pos1);
+                               // Vector3 fromPos = map.GetPosition(pos1);
                                 Vector3 toPos = map.GetPosition(targetPosition);
 
                                 int distance = Mathf.Abs(pos1 - targetPosition);
@@ -161,7 +165,7 @@ public class PreviewAction : MonoBehaviour
                             Vector3 cell = map.GetPosition(idx);
                             Map.current.tiles[idx].SetHighlight(card.rule.color);
 
-                            Vector3 fromPos = map.GetPosition(pos1);
+                            //Vector3 fromPos = map.GetPosition(pos1);
                             Vector3 toPos = map.GetPosition(pos1 + ship.direction * card.rule.movementAmount);
                             AddCurve(fromPos, toPos, card.rule.color);
                             AddAffected(this.transform.position, toPos, card.rule.color);
@@ -209,8 +213,9 @@ public class PreviewAction : MonoBehaviour
 
     }
 
-    void AddCurve(Vector3 fromPos, Vector3 toPos, Color color, int pointCount = 20)
+    ActionPreview AddCurve(Vector3 fromPos, Vector3 toPos, Color color, int pointCount = 20)
     {
+        ActionPreview preview = previews[curveCount];
         LineRenderer curve = curves[curveCount];
         float height = Vector3.Distance(fromPos, toPos) / 6;
         curve.gameObject.SetActive(true);
@@ -228,6 +233,7 @@ public class PreviewAction : MonoBehaviour
         curve.material = dottedLine;
 
         ++curveCount;
+        return preview;
     }
     void AddAffected(Vector3 fromPos, Vector3 toPos, Color color)
     {

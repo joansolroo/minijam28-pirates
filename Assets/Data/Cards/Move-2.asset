@@ -30,3 +30,8 @@ MonoBehaviour:
   scan: 0
   scanClip: {fileID: 0}
   explosionClip: {fileID: 0}
+  rules:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 798501de75899b24682ab17ff6e75673, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
