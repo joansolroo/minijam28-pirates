@@ -12,6 +12,7 @@ public class CardData : ScriptableObject {
     public Sprite art;
     public Color color;
 
+    /*
     #region movement
     [Header("Movement properties")]
     public int movementAmount = 0;
@@ -47,7 +48,7 @@ public class CardData : ScriptableObject {
     #endregion
 
     public AudioClip explosionClip;
-
+    */
     public CardAction[] rules = new CardAction[4];
 
     public string GetDescription()

@@ -129,6 +129,8 @@ public class Fight : MonoBehaviour
             int pos1 = player1.ship.position;
             int pos2 = player2.ship.position;
             Resolution1.gameObject.SetActive(true);
+
+            Map.current.ClearHighlight();
             preview1.DoPreviewAction(1, pos1,pos2);
             preview2.DoPreviewAction(1, pos2, pos1);
             yield return new WaitForSeconds(0.5f);
@@ -151,8 +153,11 @@ public class Fight : MonoBehaviour
             }
 
             Resolution2.gameObject.SetActive(true);
+
+            Map.current.ClearHighlight();
             preview1.DoPreviewAction(0, pos1, pos2);
             preview2.DoPreviewAction(0, pos2, pos1);
+
             yield return new WaitForSeconds(0.5f);
             if (!ship2moved)
             {
@@ -177,8 +182,11 @@ public class Fight : MonoBehaviour
 
 
             Resolution3.gameObject.SetActive(true);
+
+            Map.current.ClearHighlight();
             preview1.DoPreviewAction(2, pos1, pos2);
             preview2.DoPreviewAction(2, pos2, pos1);
+
             yield return new WaitForSeconds(0.5f);
             bool dynamicHit = false;
             if (!ship1hit)
@@ -242,8 +250,11 @@ public class Fight : MonoBehaviour
             if (!fightOver)
             {
                 Resolution4.gameObject.SetActive(true);
+
+                Map.current.ClearHighlight();
                 preview1.DoPreviewAction(3, pos1, pos2);
                 preview2.DoPreviewAction(3, pos2, pos1);
+
                 yield return new WaitForSeconds(1f);
 
                 // repair

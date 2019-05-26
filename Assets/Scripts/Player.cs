@@ -81,6 +81,8 @@ public class Player : MonoBehaviour
                 hand.AddCardLast(previous);
             }
             selected.AddCardLast(card);
+
+            Map.current.ClearHighlight();
             preview.DoPreviewAction();
         }
 
@@ -93,7 +95,9 @@ public class Player : MonoBehaviour
             selected.Remove(previous);
             hand.AddCardLast(previous);
         }
+        Map.current.ClearHighlight();
         preview.DoPreviewAction();
+        
 
     }
     public void RevealSelected()
@@ -102,6 +106,7 @@ public class Player : MonoBehaviour
         {
             card.SetVisible(true);
         }
+        Map.current.ClearHighlight();
         preview.DoPreviewAction();
     }
     public void DiscardSelected()
@@ -111,6 +116,7 @@ public class Player : MonoBehaviour
             discard.AddCardLast(card);
         }
         selected.Clear();
+        Map.current.ClearHighlight();
         preview.DoPreviewAction();
 
     }

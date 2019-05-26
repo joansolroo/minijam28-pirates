@@ -22,4 +22,12 @@ public class Map : MonoBehaviour {
     {  
         return tiles[ClipPosition(cell)].transform.position;
     }
+
+    public void ClearHighlight()
+    {
+        foreach (MapTile tile in this.tiles)
+        {
+            tile.ResetHighlight();
+        }
+    }
 }

@@ -24,22 +24,8 @@ MonoBehaviour:
     > Range: 5'
   art: {fileID: 21300000, guid: 406c804d629938b4ebc2c06117792198, type: 3}
   color: {r: 0.7154581, g: 0.18396229, b: 1, a: 1}
-  movementAmount: 1
-  moveClip: {fileID: 8300000, guid: 955842083ef41ed48a6059034c682cec, type: 3}
-  damageAmount: 1
-  attackTarget: 1
-  attackMaxRange: 5
-  attackClip: {fileID: 8300000, guid: b4fc3e0229bcc3246aca2024c0595d30, type: 3}
-  healAmount: 0
-  recoverCard: 0
-  healClip: {fileID: 0}
-  boarding: 0
-  boardClip: {fileID: 0}
-  scan: 0
-  scanClip: {fileID: 0}
-  explosionClip: {fileID: 8300000, guid: bd5e55f8b1a658647a32767917d52e95, type: 3}
   rules:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: a876e4b311c7be845ad324eb7640c7ca, type: 2}
   - {fileID: 11400000, guid: b4d1b2e63d2887740938b59ebde65b73, type: 2}
   - {fileID: 0}
   - {fileID: 0}

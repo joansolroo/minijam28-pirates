@@ -33,7 +33,7 @@ public class CardRenderer : MonoBehaviour {
         }
         cardName.text = card.rule.name;
         cardName.GetComponent<MeshRenderer>().material.color = card.rule.color;
-        if (card.rule.movementAmount <= 0)
+        /*if (card.rule.movementAmount <= 0)
         {
             movement.transform.parent.gameObject.SetActive(false);
 
@@ -73,7 +73,7 @@ public class CardRenderer : MonoBehaviour {
         else
         {
             heal.text = "x" + card.rule.healAmount;
-        }
+        }*/
         art.sprite = card.rule.art;
         art.color = card.rule.color;
     }

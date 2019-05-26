@@ -34,8 +34,11 @@ public class CardAction : ScriptableObject
         Map map = Map.current;
         if (ruleType == RuleType.attack)
         {
+
             if (amount > 0)
             {
+                bool hit = false;
+
                 int pos1 = ownerShip.position;
                 int pos1prev = ownerShip.previousPosition;
                 int pos2 = enemyShip.position;
@@ -54,7 +57,7 @@ public class CardAction : ScriptableObject
                     }
                     else
                     {
-                        aimedPos = pos2 - enemyShip.direction;
+                        aimedPos = pos2 + enemyShip.direction;
                     }
                 }
                 else if (target == AttackTarget.notMoving)
@@ -62,40 +65,44 @@ public class CardAction : ScriptableObject
                     aimedPos = pos2prev;
                 }
 
-                if (range > Mathf.Abs(pos1 - pos2))
+                if (range >= Mathf.Abs(pos1prev - pos2))
                 {
-                    bool hit = aimedPos != -1 && pos2 == aimedPos;
-
-                    if (!hit)
-                    {
-                        Debug.Log("Attack: attack missed");
-                        ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
-                        parameter.startColor = Color.gray;
-                        map.tiles[aimedPos].emission.Emit(parameter, Random.Range(5, 15));
-                        ownerShip.audioSource.PlayOneShot(clip);
-                    }
-                    else
-                    {
-                        Debug.Log("Attack: attack hit");
-
-                        owner.enemy.Hurt(amount);
-
-                        ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
-                        parameter.startColor = owner.enemy.color;
-                        map.tiles[aimedPos].emission.Emit(parameter, Random.Range(30, 50));
-                        ownerShip.audioSource.PlayOneShot(clip);
-                        //enemyShip.audioSource.clip = this.rule.explosionClip;
-                        //enemyShip.audioSource.PlayDelayed(0.25f);
-                    }
-
-                    return hit;
-
+                    hit = aimedPos != -1 && pos2 == aimedPos;
                 }
                 else
                 {
-                    Debug.Log("Attack: Out of range");
+                    if (ownerShip.direction == 1)
+                    {
+                        aimedPos = Mathf.Min(pos2, pos1prev + this.range * ownerShip.direction);
+                    }
+                    else
+                    {
+                        Debug.Log("Attack: Out of range");
+                        aimedPos = Mathf.Max(pos2, pos1prev + this.range * ownerShip.direction);
+                    }
                 }
+                if (!hit)
+                {
+                    Debug.Log("Attack: attack missed ("+pos2+")!=("+aimedPos+")");
+                    ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                    parameter.startColor = Color.gray;
+                    map.tiles[aimedPos].emission.Emit(parameter, Random.Range(5, 15));
+                    ownerShip.audioSource.PlayOneShot(clip);
+                }
+                else
+                {
+                    Debug.Log("Attack: attack hit");
 
+                    owner.enemy.Hurt(amount);
+
+                    ParticleSystem.EmitParams parameter = new ParticleSystem.EmitParams();
+                    parameter.startColor = owner.enemy.color;
+                    map.tiles[aimedPos].emission.Emit(parameter, Random.Range(30, 50));
+                    ownerShip.audioSource.PlayOneShot(clip);
+                    //enemyShip.audioSource.clip = this.rule.explosionClip;
+                    //enemyShip.audioSource.PlayDelayed(0.25f);
+                }
+                return hit;
             }
             return false;
         }
@@ -150,8 +157,130 @@ public class CardAction : ScriptableObject
         return false;
     }
 
-    public void Preview(Card card)
+    public void Preview(Card card, ActionPreview preview)
     {
+        Player owner = card.owner;
+        Player enemy = owner.enemy;
+        Ship ownerShip = owner.ship;
+        Ship enemyShip = enemy.ship;
+        Map map = Map.current;
 
+        int pos1 = ownerShip.position;
+        int pos1prev = ownerShip.previousPosition;
+        int pos2 = enemyShip.position;
+        int pos2prev = enemyShip.previousPosition;
+
+        Vector3 fromPos = map.GetPosition(pos1);
+
+        if (this.ruleType == CardAction.RuleType.attack && this.amount > 0)
+        {
+            int targetPosition;
+            if (ownerShip.direction == 1)
+            {
+                targetPosition = Mathf.Min(pos2prev, pos1prev + this.range * ownerShip.direction);
+            }
+            else
+            {
+                targetPosition = Mathf.Max(pos2prev, pos1prev + this.range * ownerShip.direction);
+            }
+
+            if (this.target == CardAction.AttackTarget.All)
+            {
+                for (int i = 0; i <= 1; ++i)
+                {
+                    int idx = targetPosition + enemyShip.direction * i;
+                    if (idx * ownerShip.direction > pos1 * ownerShip.direction)
+                    {
+                        Vector3 cell = map.GetPosition(idx);
+
+                        Vector3 toPos = map.GetPosition(targetPosition + enemyShip.direction * i);
+                        int distance = Mathf.Abs(pos1prev - (targetPosition + enemyShip.direction * i));
+                        if (distance <= this.range)
+                        {
+                            //AddAffected(this.transform.position, toPos, card.rule.color);
+                            preview.Set(card, this, fromPos, toPos, card.rule.color);
+                            Map.current.tiles[idx].SetHighlight(card.rule.color);
+                        }
+                        else
+                        {
+                            preview.Set(card, this, fromPos, toPos, Color.gray);
+                            // AddAffected(this.transform.position, toPos, Color.gray);
+                        }
+                    }
+                }
+            }
+            else if (this.target == CardAction.AttackTarget.Moving)
+            {
+                int i = 1;
+                //for (int i = 1; i < 3; ++i)
+                {
+                    int idx = targetPosition + enemyShip.direction * i;
+                    if (idx * ownerShip.direction > pos1 * ownerShip.direction)
+                    {
+                        Vector3 cell = map.GetPosition(idx);
+                        Vector3 toPos = map.GetPosition(targetPosition + enemyShip.direction * i);
+
+                        int distance = Mathf.Abs(pos1prev - (targetPosition + enemyShip.direction * i));
+                        if (distance <= this.range)
+                        {
+                            //AddAffected(this.transform.position, toPos, card.rule.color);
+                            Map.current.tiles[idx].SetHighlight(card.rule.color);
+                            preview.Set(card, this, fromPos, toPos, card.rule.color);
+                        }
+                        else
+                        {
+                            //AddAffected(this.transform.position, toPos, Color.gray);
+                            preview.Set(card, this, fromPos, toPos, Color.gray);
+                        }
+                    }
+                }
+            }
+            else if (this.target == CardAction.AttackTarget.notMoving)
+            {
+                int idx = targetPosition;
+                if (idx * ownerShip.direction > pos1 * ownerShip.direction)
+                {
+                    Vector3 cell = map.GetPosition(idx);
+                    Vector3 toPos = map.GetPosition(targetPosition);
+
+                    int distance = Mathf.Abs(pos1prev - targetPosition);
+                    if (distance <= this.range)
+                    {
+                        //AddAffected(this.transform.position, toPos, card.rule.color);
+                        Map.current.tiles[idx].SetHighlight(card.rule.color);
+                        preview.Set(card, this, fromPos, toPos, card.rule.color);
+                    }
+                    else
+                    {
+                        //AddAffected(this.transform.position, toPos, Color.gray);
+                        preview.Set(card, this, fromPos, toPos, Color.gray);
+                    }
+                }
+            }
+
+
+        }
+        if (this.ruleType == CardAction.RuleType.move && this.amount > 0)
+        {
+            for (int i = 0; i <= this.amount; ++i)
+            {
+                int idx = pos1 + ownerShip.direction * i;
+                Vector3 cell = map.GetPosition(idx);
+                Map.current.tiles[idx].SetHighlight(card.rule.color);
+
+                Vector3 toPos = map.GetPosition(pos1prev + ownerShip.direction * this.amount);
+                preview.Set(card, this, fromPos, toPos, card.rule.color);
+                //AddAffected(this.transform.position, toPos, card.rule.color);
+            }
+
+        }
+
+        if (this.ruleType == CardAction.RuleType.heal && this.amount > 0)
+        {
+            int idx = pos1;
+            Vector3 cell = map.GetPosition(idx);
+            Map.current.tiles[idx].SetHighlight(card.rule.color);
+            //AddAffected(this.transform.position, cell, card.rule.color);
+        }
     }
 }
